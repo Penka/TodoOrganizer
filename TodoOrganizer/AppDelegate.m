@@ -19,6 +19,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor purpleColor];
+    UILabel* myLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 200, 20)];
+    myLabel.text = @"Hello, Dancho!";
+    myLabel.textColor = [UIColor redColor];
+    [self.window addSubview:myLabel];
+    [self.window bringSubviewToFront:myLabel];
     [self.window makeKeyAndVisible];
     return YES;
 }
