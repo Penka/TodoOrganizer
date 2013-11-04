@@ -22,6 +22,8 @@
 		1894BE111826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
 		1894BE121826791300CDA37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF51826791300CDA37E /* UIKit.framework */; };
 		1894BE131826791300CDA37E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF71826791300CDA37E /* CoreData.framework */; };
+		18992C101827DB6A002FA607 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18992C0E1827DB6A002FA607 /* DetailsViewController.m */; };
+		18992C111827DB6A002FA607 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18992C0F1827DB6A002FA607 /* DetailsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,9 @@
 		1894BE081826791300CDA37E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1894BE0E1826791300CDA37E /* TodoOrganizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoOrganizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1894BE0F1826791300CDA37E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		18992C0D1827DB6A002FA607 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		18992C0E1827DB6A002FA607 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		18992C0F1827DB6A002FA607 /* DetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +92,9 @@
 			children = (
 				183C28521826BF5E00CEC80C /* TodosTableViewController.h */,
 				183C28531826BF5E00CEC80C /* TodosTableViewController.m */,
+				18992C0D1827DB6A002FA607 /* DetailsViewController.h */,
+				18992C0E1827DB6A002FA607 /* DetailsViewController.m */,
+				18992C0F1827DB6A002FA607 /* DetailsViewController.xib */,
 			);
 			name = ViewControllers;
 			path = TodoOrganizer;
@@ -241,6 +249,7 @@
 			files = (
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
+				18992C111827DB6A002FA607 /* DetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +270,7 @@
 				183C285A1826D53D00CEC80C /* Todo.m in Sources */,
 				1894BE041826791300CDA37E /* AppDelegate.m in Sources */,
 				183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */,
+				18992C101827DB6A002FA607 /* DetailsViewController.m in Sources */,
 				1894BE071826791300CDA37E /* TodoOrganizer.xcdatamodeld in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
 			);
