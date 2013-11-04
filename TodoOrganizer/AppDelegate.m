@@ -18,11 +18,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor purpleColor];
     
     TodosTableViewController *todosVC = [[TodosTableViewController alloc] init];
-    self.navigationVC = todosVC;
+    todosVC.title = @"My todos";
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:todosVC];
+    
+    self.navigationVC = navController;
+    
+//    [self.navigationVC addChildViewController:todosVC];
+    
     self.window.rootViewController = self.navigationVC;
     
     [self.window makeKeyAndVisible];
