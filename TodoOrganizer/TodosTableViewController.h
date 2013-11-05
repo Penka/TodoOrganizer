@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TodosTableViewController : UITableViewController
+@interface TodosTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 
-@property (strong, nonatomic) NSArray *todos;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+
+//mine
+-(void) changeView; //for test purposes to change the view when clicking on add button in the navigation.
 
 @end

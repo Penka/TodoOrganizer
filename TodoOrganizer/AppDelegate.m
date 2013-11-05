@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TodosTableViewController.h"
+#import "Todo.h"
 
 @implementation AppDelegate
 
@@ -19,17 +20,20 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    TodosTableViewController *todosVC = [[TodosTableViewController alloc] init];
-    todosVC.title = @"My todos";
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:todosVC];
+    TodosTableViewController *todosViewController = [[TodosTableViewController alloc] init];
+    todosViewController.managedObjectContext = self.managedObjectContext;
+    todosViewController.title = @"My todos";
     
-    self.navigationVC = navController;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:todosViewController];
     
-//    [self.navigationVC addChildViewController:todosVC];
+    [navController addChildViewController:todosViewController];
     
-    self.window.rootViewController = self.navigationVC;
+    self.navigationController = navController;
+    
+    self.window.rootViewController = self.navigationController;
     
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -155,5 +159,20 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+//-(void) addTodo{
+//    NSManagedObjectContext *context = [self managedObjectContext];
+//    NSManagedObject *newTodo = [NSEntityDescription
+//                                       insertNewObjectForEntityForName:@"Todo"
+//                                       inManagedObjectContext:context];
+//    [newTodo setValue:@"Test title" forKey:@"title"];
+//    [newTodo setValue:@"Test description " forKey:@"todoDescription"];
+//    [newTodo setValue:@"Test address" forKey:@"place"];
+//
+//    NSError *error;
+//    if (![context save:&error]) {
+//        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+//    }
+//}
 
 @end

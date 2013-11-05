@@ -4,7 +4,7 @@
         <attribute name="isDone" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="stepDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="todo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" syncable="YES"/>
+        <relationship name="todo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" inverseName="step" inverseEntity="Todo" syncable="YES"/>
     </entity>
     <entity name="Todo" syncable="YES">
         <attribute name="deadline" optional="YES" attributeType="Date" syncable="YES"/>
@@ -12,16 +12,10 @@
         <attribute name="place" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="todoDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
-    </entity>
-    <entity name="User" syncable="YES">
-        <attribute name="authCode" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="step" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Step" inverseName="todo" inverseEntity="Step" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Step" positionX="-17874" positionY="-11826" width="128" height="103"/>
+        <element name="Step" positionX="-17849" positionY="-11866" width="128" height="103"/>
         <element name="Todo" positionX="-18090" positionY="-11833" width="126" height="133"/>
-        <element name="User" positionX="-18090" positionY="-11664" width="128" height="88"/>
     </elements>
 </model>

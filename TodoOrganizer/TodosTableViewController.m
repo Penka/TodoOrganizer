@@ -7,13 +7,49 @@
 //
 
 #import "TodosTableViewController.h"
-#import "DetailsViewController.h"
+#import "DetailViewController.h"
+#import "AddTodoViewController.h"
+#import "Todo.h"
+
 
 @interface TodosTableViewController ()
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
 
 @implementation TodosTableViewController
+
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Todo" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
+                              initWithKey:@"title" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                        managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
+                                                   cacheName:@"Root"];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = self;
+    
+    return _fetchedResultsController;
+}
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -24,17 +60,47 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.todos = @[@"Must learn this language", @"Still must learn it!"
-                   , @"Must learn this language written again", @"Still must learn it written again!"];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.fetchedResultsController = nil;
+    
+    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"TodoCell"];
+    
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
+    
+    
+    addButton.action = @selector(changeView);
+    addButton.target = self;
+    addButton.title = @"Add";
+
+    self.navigationItem.leftBarButtonItem = addButton;
+}
+
+
+-(void) changeView{
+    // Create the next view controller.
+    AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
+    
+    // Pass the selected object to the new view controller.
+    
+    // Push the view controller.
+    [self.navigationController pushViewController:addTodoViewController animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,30 +113,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    return 1;
+    return [[self.fetchedResultsController sections] count];
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return self.todos.count;
+    id  sectionInfo =
+    [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSString *todoTitle = [self.todos objectAtIndex:indexPath.row];
+    static NSString *cellIdentifier = @"TodoCell";
     
-    cell.textLabel.text = todoTitle;
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = todo.title;
     
     return cell;
 }
+
 
 
 // Override to support conditional editing of the table view.
@@ -119,14 +184,14 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+    DetailViewController *detailsViewController = [[DetailViewController alloc] init];
 
     // Pass the selected object to the new view controller.
     
     // Push the view controller.
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
- 
+
 
 
 @end
