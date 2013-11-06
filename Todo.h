@@ -7,6 +7,7 @@
 //
 
 #import <CoreData/CoreData.h>
+#import "Step.h"
 
 @interface Todo : NSManagedObject
 
@@ -15,5 +16,6 @@
 @property (nonatomic) Boolean isDone;
 @property (nonatomic, strong) NSString *place;
 @property (nonatomic, strong) NSString *todoDescription;
+@property (nonatomic, strong) NSSet *steps;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "DetailViewController.h"
+#import "AddStepViewController.h"
+
 
 @interface DetailViewController ()
 
@@ -16,10 +18,14 @@
 @property (nonatomic, strong) UILabel *deadlineLabel;
 
 -(void) updateInterface;
+-(void) addStepButtonClick;
+
 
 @end
 
 @implementation DetailViewController
+
+@synthesize stepsTableView = _stepsTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,49 +39,123 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-	// Do any additional setup after loading the view.
+    if (self.todo.isDone) {
+        self.view.backgroundColor = [UIColor orangeColor];
+    } else{
+        self.view.backgroundColor = [UIColor whiteColor];
+    }
+    
+	// Do any additional setup after loading the iew.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-//    UIBarButtonItem* completeTodoButton = [[UIBarButtonItem alloc] init];
+    self.stepsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 270, 320, 400)];
+    self.stepsTableView.dataSource = self;
+    self.stepsTableView.delegate = self;
+
+    [self.stepsTableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"StepCell"];
+  
+    UIButton *addStepButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 250, 120, 20)];
+    [addStepButton setTitle:@"Add step" forState:UIControlStateNormal];
+
+    [addStepButton addTarget:self action:@selector(addStepButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    addStepButton.backgroundColor = [UIColor orangeColor];
+    [self.view addSubview:addStepButton];
+    
+    self.stepsViewController = [[StepsViewController alloc] init];
+    
+    self.stepsViewController.todo = self.todo;
+    
+    self.stepsViewController.view.backgroundColor = [UIColor magentaColor];
+    
+    //[self addChildViewController:self.stepsViewController];
+    
+//    [self.stepsViewController.tableView setBounds:CGRectMake(0, 300, 100, 400)];
 //    
-//    completeTodoButton.action = @selector(completeTodo);
-//    completeTodoButton.target = self;
-//    completeTodoButton.title = @"Complete";
-//    
-//    self.navigationItem.leftBarButtonItem = completeTodoButton;
+    [self.view addSubview:self.stepsTableView];
+
+    
+    
     
     [self updateInterface];
+    [self.stepsTableView reloadData];
 }
 
--(void) updateInterface{
+
+
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+
+
+
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+     [self.stepsTableView reloadData];
+ }
+ }
+
+
+-(void) addStepButtonClick
+{
+    
+    AddStepViewController *addStepViewController = [[AddStepViewController alloc] init];
+    addStepViewController.todo = self.todo;
+    addStepViewController.managedObjectContext = self.managedObjectContext;
+    
+    [self.navigationController pushViewController:addStepViewController animated:YES];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger stepsCount = self.todo.steps.count;
+    return stepsCount;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"StepCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //cell.textLabel.text = @"table inside uivc";
+    NSArray *allSteps = [self.todo.steps allObjects];
+    
+    Step *step = [allSteps objectAtIndex:indexPath.row];
+    cell.textLabel.text = step.text;
+    
+    return cell;
+}
+
+
+-(void) updateInterface
+{
     self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 100, 200, 50)];
     self.titleLabel.backgroundColor = [UIColor blueColor];
-    self.titleLabel.text = self.todo.title;; //self.titleLabel.text = self.todo.title;
+    self.titleLabel.text = self.todo.title;
     [self.view addSubview:self.titleLabel];
     
     self.descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 150, 200, 50)];
     self.descriptionLabel.backgroundColor = [UIColor blueColor];
-    self.descriptionLabel.text = self.todo.todoDescription;;
+    self.descriptionLabel.text = self.todo.todoDescription;
     [self.view addSubview:self.descriptionLabel];
     
     self.placeLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 200, 200, 50)];
     self.placeLabel.backgroundColor = [UIColor blueColor];
-    self.placeLabel.text = self.todo.place;;
+    self.placeLabel.text = self.todo.place;
     [self.view addSubview:self.placeLabel];
     
-}
-
--(void) completeTodo{
-    [self.todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
-    
-    self.navigationController.view.backgroundColor = [UIColor greenColor];
-    
-    NSError *error;
-    if(![self.managedObjectContext save:&error]){
-        NSLog(error);
-        abort();
-    }
 }
 
 - (void)didReceiveMemoryWarning

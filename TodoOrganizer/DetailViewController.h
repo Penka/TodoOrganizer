@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Todo.h"
+#import "StepsViewController.h"
 
-@interface DetailViewController : UIViewController
+@interface DetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) Todo *todo;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
--(void) completeTodo;
+@property (nonatomic, retain) UITableView *stepsTableView;
+
+@property (nonatomic, strong) StepsViewController *stepsViewController;
 
 @end

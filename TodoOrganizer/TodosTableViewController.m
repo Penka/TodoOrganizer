@@ -24,7 +24,8 @@
 @implementation TodosTableViewController
 
 
-- (NSFetchedResultsController *)fetchedResultsController {
+- (NSFetchedResultsController *)fetchedResultsController
+{
     
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
@@ -64,12 +65,12 @@
     return self;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
+    //[self addTodo];
     
     self.fetchedResultsController = nil;
     
@@ -97,13 +98,14 @@
     gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
     gestureR.direction = UISwipeGestureRecognizerDirectionRight;
     [self.tableView addGestureRecognizer:gestureR];
-    
+        
     //end
 
 }
 
 
--(void) changeView{
+-(void) changeView
+{
     // Create the next view controller.
     AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
     
@@ -135,7 +137,8 @@
     return [sectionInfo numberOfObjects];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     static NSString *cellIdentifier = @"TodoCell";
     
@@ -150,28 +153,26 @@
     return cell;
 }
 
--(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer{
+-(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer
+{
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
         NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
-        UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
-        swipedCell.backgroundColor = [UIColor darkGrayColor];
-        NSLog(swipedCell.textLabel.text);
+        //UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
         
         Todo *todo = [self.fetchedResultsController objectAtIndexPath:swipedIndexPath];
         
         [self completeTodo:todo];
-        
-        NSLog(todo.place);
     }
 }
 
--(void) completeTodo:(Todo *) todo{
+-(void) completeTodo:(Todo *) todo
+{
     [todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
     
     NSError *error;
     if(![self.managedObjectContext save:&error]){
-        NSLog(error);
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 }
@@ -203,6 +204,10 @@
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        
+        [self.tableView reloadData];
+        
+        //here refresh the list of todos so that the deleted todo will not show.
     }
     
 }
@@ -240,5 +245,49 @@
     
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
+
+-(void) addTodo
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    for (int i = 1; i <= 30; i++) {
+        NSManagedObject *newTodo = [NSEntityDescription
+                                    insertNewObjectForEntityForName:@"Todo"
+                                    inManagedObjectContext:context];
+        NSString *title = [NSString stringWithFormat:@"My Title %d", i];
+        NSString *description = [NSString stringWithFormat:@"Description %d", i];
+        NSString *place = [NSString stringWithFormat:@"Place %d", i];
+
+        [newTodo setValue:title forKey:@"title"];
+        [newTodo setValue:description forKey:@"todoDescription"];
+        [newTodo setValue:place forKey:@"place"];
+        
+        for (int j = 1; j<= 10; j++) {
+            NSManagedObject *newStep = [NSEntityDescription
+                                        insertNewObjectForEntityForName:@"Step"
+                                        inManagedObjectContext:context];
+            NSString *text = [NSString stringWithFormat:@"Text %d %d", i, j];
+            
+            [newStep setValue:text forKey:@"text"];
+            [newStep setValue:newTodo forKey:@"todo"];
+            
+            NSError *error;
+            if (![context save:&error]) {
+                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+            }
+
+        }
+        
+        NSError *error;
+        if (![context save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
+
+}
+
+
 
 @end

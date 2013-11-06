@@ -20,6 +20,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    //[self addTodo];
+    
     TodosTableViewController *todosViewController = [[TodosTableViewController alloc] init];
     todosViewController.managedObjectContext = self.managedObjectContext;
     todosViewController.title = @"My todos";
@@ -160,19 +162,26 @@
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
-//-(void) addTodo{
-//    NSManagedObjectContext *context = [self managedObjectContext];
-//    NSManagedObject *newTodo = [NSEntityDescription
-//                                       insertNewObjectForEntityForName:@"Todo"
-//                                       inManagedObjectContext:context];
-//    [newTodo setValue:@"Test title" forKey:@"title"];
-//    [newTodo setValue:@"Test description " forKey:@"todoDescription"];
-//    [newTodo setValue:@"Test address" forKey:@"place"];
-//
-//    NSError *error;
-//    if (![context save:&error]) {
-//        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-//    }
-//}
+-(void) addTodo{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    
+    for (int i = 1; i <= 30; i++) {
+    NSManagedObject *newTodo = [NSEntityDescription
+                                       insertNewObjectForEntityForName:@"Todo"
+                                       inManagedObjectContext:context];
+    NSString *title = [NSString stringWithFormat:@"Title %d", i];
+    NSString *description = [NSString stringWithFormat:@"Description %d", i];
+    NSString *place = [NSString stringWithFormat:@"Place %d", i];
+        
+    [newTodo setValue:title forKey:@"title"];
+    [newTodo setValue:description forKey:@"todoDescription"];
+    [newTodo setValue:place forKey:@"place"];
+
+    NSError *error;
+    if (![context save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+    }
+}
 
 @end

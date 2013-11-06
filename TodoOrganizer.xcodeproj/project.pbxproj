@@ -24,6 +24,9 @@
 		1894BE131826791300CDA37E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF71826791300CDA37E /* CoreData.framework */; };
 		1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5818290D8500DB28E6 /* DetailViewController.m */; };
 		1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */; };
+		189C80E1182A9F9E008E0BFD /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E0182A9F9E008E0BFD /* Step.m */; };
+		189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E3182AACE2008E0BFD /* AddStepViewController.m */; };
+		189C80E7182ACB09008E0BFD /* StepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E6182ACB09008E0BFD /* StepsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,12 @@
 		1896ED5818290D8500DB28E6 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTodoViewController.h; sourceTree = "<group>"; };
 		1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTodoViewController.m; sourceTree = "<group>"; };
+		189C80DF182A9F9E008E0BFD /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
+		189C80E0182A9F9E008E0BFD /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
+		189C80E2182AACE2008E0BFD /* AddStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStepViewController.h; sourceTree = "<group>"; };
+		189C80E3182AACE2008E0BFD /* AddStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStepViewController.m; sourceTree = "<group>"; };
+		189C80E5182ACB09008E0BFD /* StepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepsViewController.h; sourceTree = "<group>"; };
+		189C80E6182ACB09008E0BFD /* StepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +106,10 @@
 				1896ED5818290D8500DB28E6 /* DetailViewController.m */,
 				1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */,
 				1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */,
+				189C80E2182AACE2008E0BFD /* AddStepViewController.h */,
+				189C80E3182AACE2008E0BFD /* AddStepViewController.m */,
+				189C80E5182ACB09008E0BFD /* StepsViewController.h */,
+				189C80E6182ACB09008E0BFD /* StepsViewController.m */,
 			);
 			name = ViewControllers;
 			path = TodoOrganizer;
@@ -107,6 +120,8 @@
 			children = (
 				183C28581826D53D00CEC80C /* Todo.h */,
 				183C28591826D53D00CEC80C /* Todo.m */,
+				189C80DF182A9F9E008E0BFD /* Step.h */,
+				189C80E0182A9F9E008E0BFD /* Step.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -273,7 +288,10 @@
 				1894BE041826791300CDA37E /* AppDelegate.m in Sources */,
 				183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */,
 				1894BE071826791300CDA37E /* TodoOrganizer.xcdatamodeld in Sources */,
+				189C80E1182A9F9E008E0BFD /* Step.m in Sources */,
+				189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
+				189C80E7182ACB09008E0BFD /* StepsViewController.m in Sources */,
 				1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
