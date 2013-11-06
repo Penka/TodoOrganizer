@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
+-(void) handleSwipeFrom:(UIGestureRecognizer *) sender;
+-(void) completeTodo:(Todo *) todo;
+
 @end
 
 @implementation TodosTableViewController
@@ -87,6 +90,16 @@
     addButton.title = @"Add";
 
     self.navigationItem.leftBarButtonItem = addButton;
+    
+    
+    //from here starts the code for gesturing - swiping for completing todo
+    UISwipeGestureRecognizer* gestureR;
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    gestureR.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.tableView addGestureRecognizer:gestureR];
+    
+    //end
+
 }
 
 
@@ -134,11 +147,34 @@
     if(todo.isDone){
         cell.backgroundColor = [UIColor orangeColor];
     }
-    
     return cell;
 }
 
+-(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer{
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
+        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
+        UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
+        swipedCell.backgroundColor = [UIColor darkGrayColor];
+        NSLog(swipedCell.textLabel.text);
+        
+        Todo *todo = [self.fetchedResultsController objectAtIndexPath:swipedIndexPath];
+        
+        [self completeTodo:todo];
+        
+        NSLog(todo.place);
+    }
+}
 
+-(void) completeTodo:(Todo *) todo{
+    [todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
+    
+    NSError *error;
+    if(![self.managedObjectContext save:&error]){
+        NSLog(error);
+        abort();
+    }
+}
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

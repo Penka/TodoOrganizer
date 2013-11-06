@@ -37,13 +37,13 @@
 	// Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem* completeTodoButton = [[UIBarButtonItem alloc] init];
-    
-    completeTodoButton.action = @selector(completeTodo);
-    completeTodoButton.target = self;
-    completeTodoButton.title = @"Complete";
-    
-    self.navigationItem.leftBarButtonItem = completeTodoButton;
+//    UIBarButtonItem* completeTodoButton = [[UIBarButtonItem alloc] init];
+//    
+//    completeTodoButton.action = @selector(completeTodo);
+//    completeTodoButton.target = self;
+//    completeTodoButton.title = @"Complete";
+//    
+//    self.navigationItem.leftBarButtonItem = completeTodoButton;
     
     [self updateInterface];
 }
@@ -72,8 +72,10 @@
     self.navigationController.view.backgroundColor = [UIColor greenColor];
     
     NSError *error;
-    [self.managedObjectContext save:&error];
-    NSLog(error);
+    if(![self.managedObjectContext save:&error]){
+        NSLog(error);
+        abort();
+    }
 }
 
 - (void)didReceiveMemoryWarning
