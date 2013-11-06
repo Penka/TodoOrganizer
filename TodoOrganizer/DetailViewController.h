@@ -13,4 +13,8 @@
 
 @property (strong, nonatomic) Todo *todo;
 
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+
+-(void) completeTodo;
+
 @end

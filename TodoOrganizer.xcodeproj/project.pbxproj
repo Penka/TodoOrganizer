@@ -24,8 +24,6 @@
 		1894BE131826791300CDA37E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF71826791300CDA37E /* CoreData.framework */; };
 		1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5818290D8500DB28E6 /* DetailViewController.m */; };
 		1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */; };
-		18992C101827DB6A002FA607 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18992C0E1827DB6A002FA607 /* DetailsViewController.m */; };
-		18992C111827DB6A002FA607 /* DetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18992C0F1827DB6A002FA607 /* DetailsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,9 +60,6 @@
 		1896ED5818290D8500DB28E6 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTodoViewController.h; sourceTree = "<group>"; };
 		1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTodoViewController.m; sourceTree = "<group>"; };
-		18992C0D1827DB6A002FA607 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
-		18992C0E1827DB6A002FA607 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		18992C0F1827DB6A002FA607 /* DetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +93,6 @@
 			children = (
 				183C28521826BF5E00CEC80C /* TodosTableViewController.h */,
 				183C28531826BF5E00CEC80C /* TodosTableViewController.m */,
-				18992C0D1827DB6A002FA607 /* DetailsViewController.h */,
-				18992C0E1827DB6A002FA607 /* DetailsViewController.m */,
-				18992C0F1827DB6A002FA607 /* DetailsViewController.xib */,
 				1896ED5718290D8500DB28E6 /* DetailViewController.h */,
 				1896ED5818290D8500DB28E6 /* DetailViewController.m */,
 				1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */,
@@ -259,7 +251,6 @@
 			files = (
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
-				18992C111827DB6A002FA607 /* DetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +272,6 @@
 				183C285A1826D53D00CEC80C /* Todo.m in Sources */,
 				1894BE041826791300CDA37E /* AppDelegate.m in Sources */,
 				183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */,
-				18992C101827DB6A002FA607 /* DetailsViewController.m in Sources */,
 				1894BE071826791300CDA37E /* TodoOrganizer.xcdatamodeld in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
 				1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */,

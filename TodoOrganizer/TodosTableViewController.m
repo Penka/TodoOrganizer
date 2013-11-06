@@ -34,8 +34,8 @@
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
                               initWithKey:@"title" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
     [NSFetchedResultsController deleteCacheWithName:@"Root"];
@@ -44,6 +44,7 @@
     [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                         managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil
                                                    cacheName:@"Root"];
+    
     self.fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = self;
     
@@ -66,8 +67,6 @@
     [super viewDidLoad];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     
     self.fetchedResultsController = nil;
     
@@ -75,14 +74,13 @@
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
-    
     
     addButton.action = @selector(changeView);
     addButton.target = self;
@@ -120,7 +118,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id  sectionInfo =
-    [[_fetchedResultsController sections] objectAtIndex:section];
+        [[_fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -132,6 +130,10 @@
     
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = todo.title;
+    
+    if(todo.isDone){
+        cell.backgroundColor = [UIColor orangeColor];
+    }
     
     return cell;
 }
@@ -146,19 +148,29 @@
 }
 
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+        // Delete the managed object.
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error;
+        if (![context save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -182,16 +194,15 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
     DetailViewController *detailsViewController = [[DetailViewController alloc] init];
 
-    // Pass the selected object to the new view controller.
+    detailsViewController.managedObjectContext = self.managedObjectContext;
     
-    // Push the view controller.
+    Todo *selectedTodo = (Todo *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+
+    detailsViewController.todo = selectedTodo;
+    
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
-
-
 
 @end

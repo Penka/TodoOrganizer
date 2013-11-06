@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *deadline;
-@property (nonatomic) BOOL isDone;
+@property (nonatomic) Boolean isDone;
 @property (nonatomic, strong) NSString *place;
 @property (nonatomic, strong) NSString *todoDescription;
 
