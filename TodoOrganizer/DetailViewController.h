@@ -17,4 +17,6 @@
 
 @property (nonatomic, retain) UITableView *stepsTableView;
 
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
 @end

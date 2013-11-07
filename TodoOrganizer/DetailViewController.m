@@ -83,8 +83,19 @@
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self.stepsTableView reloadData];
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
+            Step *selectedStep =[self.fetchedResultsController objectAtIndexPath:indexPath];
+            [self.managedObjectContext deleteObject:selectedStep];
+            
+            NSError *error;
+            if (![self.managedObjectContext save:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
+            
+            [self.stepsTableView reloadData];
+        }
+
     }
 }
 
