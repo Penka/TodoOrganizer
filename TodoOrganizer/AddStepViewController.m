@@ -23,7 +23,6 @@
 {
     [super viewDidLoad];
     
-    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] init];
     addButton.action = @selector(addTodoStep);
     addButton.target = self;
@@ -39,12 +38,10 @@
     
     [self.view addSubview:label];
     
-    self.textFieldStepText = [[UITextField alloc] initWithFrame:CGRectMake(0, 270, 100, 100)];
+    self.textFieldStepText = [[UITextField alloc] initWithFrame:CGRectMake(0, 170, 100, 10)];
     self.textFieldStepText.backgroundColor = [UIColor blueColor];
 
     [self.view addSubview:self.textFieldStepText];
-
-	// Do any additional setup after loading the view.
 }
 
 -(void) addTodoStep{

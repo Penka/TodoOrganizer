@@ -26,7 +26,6 @@
 		1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */; };
 		189C80E1182A9F9E008E0BFD /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E0182A9F9E008E0BFD /* Step.m */; };
 		189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E3182AACE2008E0BFD /* AddStepViewController.m */; };
-		189C80E7182ACB09008E0BFD /* StepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E6182ACB09008E0BFD /* StepsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,8 +66,6 @@
 		189C80E0182A9F9E008E0BFD /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		189C80E2182AACE2008E0BFD /* AddStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddStepViewController.h; sourceTree = "<group>"; };
 		189C80E3182AACE2008E0BFD /* AddStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddStepViewController.m; sourceTree = "<group>"; };
-		189C80E5182ACB09008E0BFD /* StepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepsViewController.h; sourceTree = "<group>"; };
-		189C80E6182ACB09008E0BFD /* StepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +105,6 @@
 				1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */,
 				189C80E2182AACE2008E0BFD /* AddStepViewController.h */,
 				189C80E3182AACE2008E0BFD /* AddStepViewController.m */,
-				189C80E5182ACB09008E0BFD /* StepsViewController.h */,
-				189C80E6182ACB09008E0BFD /* StepsViewController.m */,
 			);
 			name = ViewControllers;
 			path = TodoOrganizer;
@@ -291,7 +286,6 @@
 				189C80E1182A9F9E008E0BFD /* Step.m in Sources */,
 				189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
-				189C80E7182ACB09008E0BFD /* StepsViewController.m in Sources */,
 				1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

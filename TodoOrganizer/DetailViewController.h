@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Todo.h"
-#import "StepsViewController.h"
 
 @interface DetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
@@ -17,7 +16,5 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) UITableView *stepsTableView;
-
-@property (nonatomic, strong) StepsViewController *stepsViewController;
 
 @end

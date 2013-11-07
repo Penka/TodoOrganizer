@@ -18,6 +18,7 @@
 
 -(void) handleSwipeFrom:(UIGestureRecognizer *) sender;
 -(void) completeTodo:(Todo *) todo;
+-(void) changeViewToAddVC;
 
 @end
 
@@ -68,8 +69,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+
     //[self addTodo];
     
     self.fetchedResultsController = nil;
@@ -79,41 +79,14 @@
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
+		abort();
 	}
+    
+    [self setLeftNavigationButton];
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
-    
-    addButton.action = @selector(changeView);
-    addButton.target = self;
-    addButton.title = @"Add";
-
-    self.navigationItem.leftBarButtonItem = addButton;
-    
-    
-    //from here starts the code for gesturing - swiping for completing todo
-    UISwipeGestureRecognizer* gestureR;
-    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    gestureR.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.tableView addGestureRecognizer:gestureR];
-        
-    //end
-
-}
-
-
--(void) changeView
-{
-    // Create the next view controller.
-    AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
-    
-    // Pass the selected object to the new view controller.
-    
-    // Push the view controller.
-    [self.navigationController pushViewController:addTodoViewController animated:YES];
-
+    [self setGesturerForCompletingTodo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,63 +126,27 @@
     return cell;
 }
 
--(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
-        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
-        //UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
-        
-        Todo *todo = [self.fetchedResultsController objectAtIndexPath:swipedIndexPath];
-        
-        [self completeTodo:todo];
-    }
-}
-
--(void) completeTodo:(Todo *) todo
-{
-    [todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
-    
-    NSError *error;
-    if(![self.managedObjectContext save:&error]){
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-}
-
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the managed object.
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         
         NSError *error;
         if (![context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
         
         [self.tableView reloadData];
-        
-        //here refresh the list of todos so that the deleted todo will not show.
     }
-    
 }
 
 
@@ -246,6 +183,36 @@
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
+#pragma mark - My methods
+
+-(void) setGesturerForCompletingTodo
+{
+    UISwipeGestureRecognizer* gestureR;
+    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    gestureR.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.tableView addGestureRecognizer:gestureR];
+}
+
+-(void) setLeftNavigationButton
+{
+    
+    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
+    
+    addButton.action = @selector(changeViewToAddVC);
+    addButton.target = self;
+    addButton.title = @"Add";
+    
+    self.navigationItem.leftBarButtonItem = addButton;
+    
+}
+
+-(void) changeViewToAddVC
+{
+    AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
+    [self.navigationController pushViewController:addTodoViewController animated:YES];
+    
+}
+
 -(void) addTodo
 {
     NSManagedObjectContext *context = [self managedObjectContext];
@@ -257,7 +224,7 @@
         NSString *title = [NSString stringWithFormat:@"My Title %d", i];
         NSString *description = [NSString stringWithFormat:@"Description %d", i];
         NSString *place = [NSString stringWithFormat:@"Place %d", i];
-
+        
         [newTodo setValue:title forKey:@"title"];
         [newTodo setValue:description forKey:@"todoDescription"];
         [newTodo setValue:place forKey:@"place"];
@@ -275,7 +242,6 @@
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
-
         }
         
         NSError *error;
@@ -285,9 +251,30 @@
         
         [[self navigationController] popViewControllerAnimated:YES];
     }
-
 }
 
+-(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
+        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
+        //UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
+        
+        Todo *todo = [self.fetchedResultsController objectAtIndexPath:swipedIndexPath];
+        
+        [self completeTodo:todo];
+    }
+}
 
+-(void) completeTodo:(Todo *) todo
+{
+    [todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
+    
+    NSError *error;
+    if(![self.managedObjectContext save:&error]){
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
 
 @end
