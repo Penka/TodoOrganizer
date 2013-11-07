@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D4D182BF4FD00ADF213 /* DetailsViewController.m */; };
 		18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18295D57182C051700ADF213 /* DetailsHeaderView.xib */; };
+		18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D5C182C28AE00ADF213 /* TodoCell.m */; };
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
 		183C285A1826D53D00CEC80C /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28591826D53D00CEC80C /* Todo.m */; };
 		1894BDF21826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
@@ -43,6 +44,8 @@
 		18295D4C182BF4FD00ADF213 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		18295D4D182BF4FD00ADF213 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		18295D57182C051700ADF213 /* DetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsHeaderView.xib; sourceTree = "<group>"; };
+		18295D5B182C28AE00ADF213 /* TodoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoCell.h; sourceTree = "<group>"; };
+		18295D5C182C28AE00ADF213 /* TodoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoCell.m; sourceTree = "<group>"; };
 		183C28521826BF5E00CEC80C /* TodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodosTableViewController.h; sourceTree = "<group>"; };
 		183C28531826BF5E00CEC80C /* TodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodosTableViewController.m; sourceTree = "<group>"; };
 		183C28581826D53D00CEC80C /* Todo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Todo.h; sourceTree = "<group>"; };
@@ -96,6 +99,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		18295D5A182C289200ADF213 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				18295D5B182C28AE00ADF213 /* TodoCell.h */,
+				18295D5C182C28AE00ADF213 /* TodoCell.m */,
+			);
+			name = TableCells;
+			sourceTree = "<group>";
+		};
 		183C28511826BECF00CEC80C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +147,7 @@
 		1894BDE51826791200CDA37E = {
 			isa = PBXGroup;
 			children = (
+				18295D5A182C289200ADF213 /* TableCells */,
 				1894BDEF1826791300CDA37E /* Products */,
 				1894BDF01826791300CDA37E /* Frameworks */,
 				183C28571826D4E900CEC80C /* Models */,
@@ -291,6 +304,7 @@
 				189C80E1182A9F9E008E0BFD /* Step.m in Sources */,
 				189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
+				18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

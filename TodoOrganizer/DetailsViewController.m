@@ -32,6 +32,10 @@
         tableHeaderView = [view objectAtIndex:0];
         self.tableView.tableHeaderView = tableHeaderView;
         self.tableView.allowsSelectionDuringEditing = YES;
+        self.titleTextField.enabled = NO;
+        self.placeTextField.enabled = NO;
+        self.descriptionTextField.enabled = NO;
+        self.deadlineTextField.enabled = NO;
     }
 }
 
@@ -57,17 +61,16 @@
 
 
 - (void)viewDidUnload {
+	[super viewDidUnload];
     self.tableHeaderView = nil;
 	self.titleTextField = nil;
 	self.descriptionTextField = nil;
 	self.placeTextField = nil;
-	[super viewDidUnload];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -79,8 +82,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return steps.count;
+    NSInteger stepsCount = steps.count;
+//    if (self.editing) {
+//        return stepsCount + 1;
+//    }
+    
+    return stepsCount;
 }
 
 
@@ -100,15 +107,15 @@
 	
     NSUInteger stepsCount = [todo.steps count];
     
-    NSArray *stepsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:stepsCount inSection:1]];
+    NSArray *stepsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:stepsCount inSection:0]];
     
-    if (editing) {
-        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-		descriptionTextField.placeholder = @"Overview";
-	} else {
-        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-		descriptionTextField.placeholder = @"";
-    }
+//    if (editing) {
+//        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+//		descriptionTextField.placeholder = @"Overview";
+//	} else {
+//        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+//		descriptionTextField.placeholder = @"";
+//    }
     
     [self.tableView endUpdates];
 	
@@ -157,12 +164,26 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
+    if(indexPath.row < steps.count){
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+    
+        Step *step = [steps objectAtIndex:indexPath.row];
+        cell.textLabel.text = step.text;
     }
-    NSLog(@"oh no... %d", indexPath.row);
-    Step *step = [steps objectAtIndex:indexPath.row];
-    cell.textLabel.text = step.text;
+    else{
+        static NSString *AddStepCellIdentifier = @"AddStepCell";
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:AddStepCellIdentifier];
+        if (cell == nil) {
+            // Create a cell to display "Add Ingredient".
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddStepCellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        cell.textLabel.text = @"Add step";
+    }
     
     return cell;
 }

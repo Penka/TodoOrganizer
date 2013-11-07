@@ -25,10 +25,11 @@
 @property (nonatomic, retain) NSMutableArray *steps;
 @property (nonatomic, retain) IBOutlet UIView *tableHeaderView;
 
-@property (retain, nonatomic) IBOutlet UITextField *placeTextField;
-@property (retain, nonatomic) IBOutlet UITextField *descriptionTextField;
-@property (retain, nonatomic) IBOutlet UITextField *titleTextField;
-@property (retain, nonatomic) IBOutlet UITextField *deadlineTextField;
+@property (nonatomic, retain) IBOutlet UITextField *placeTextField;
+@property (nonatomic, retain) IBOutlet UITextField *descriptionTextField;
+@property (nonatomic, retain) IBOutlet UITextField *titleTextField;
+@property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
 
+@property (weak, nonatomic) IBOutlet UISwitch *isDoneSwitch;
 
 @end

@@ -10,7 +10,7 @@
 #import "DetailsViewController.h"
 #import "AddTodoViewController.h"
 #import "Todo.h"
-
+#import "TodoCell.h"
 
 @interface TodosTableViewController ()
 
@@ -73,7 +73,7 @@
     
     self.fetchedResultsController = nil;
     
-    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"TodoCell"];
+    [self.tableView registerClass: [TodoCell class] forCellReuseIdentifier:@"TodoCellIdentifier"];
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -115,13 +115,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    
+//    static NSString *cellIdentifier = @"TodoCell";
+//    
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    static NSString *TodoCellIdentifier = @"TodoCellIdentifier";
     
-    static NSString *cellIdentifier = @"TodoCell";
-    
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    
+    TodoCell *cell = (TodoCell *)[self.tableView dequeueReusableCellWithIdentifier:TodoCellIdentifier];
+
+    if (cell == nil) {
+        cell = [[TodoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TodoCellIdentifier];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = todo.title;
+    //cell.textLabel.text = todo.title;
+    cell.todo = todo;
     
     if(todo.isDone){
         cell.backgroundColor = [UIColor orangeColor];
@@ -185,20 +194,18 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-
-    //detailsViewController.managedObjectContext = self.managedObjectContext;
-    
     Todo *selectedTodo = (Todo *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-
-    detailsViewController.todo = selectedTodo;
-    
-    //detailsViewController.fetchedResultsController = self.fetchedResultsController;
-    
-    [self.navigationController pushViewController:detailsViewController animated:YES];
+    [self showTodoDetails:selectedTodo];
 }
 
 #pragma mark - My methods
+
+-(void) showTodoDetails :(Todo *)selectedTodo
+{
+    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+    detailsViewController.todo = selectedTodo;
+    [self.navigationController pushViewController:detailsViewController animated:YES];
+}
 
 -(void) setGesturerForCompletingTodo
 {
@@ -210,7 +217,6 @@
 
 -(void) setRightNavigationButton
 {
-    
     UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
     
     addButton.action = @selector(changeViewToAddVC);
@@ -218,7 +224,6 @@
     addButton.title = @"Add";
     
     self.navigationItem.rightBarButtonItem = addButton;
-    
 }
 
 -(void) changeViewToAddVC
@@ -267,6 +272,27 @@
         [[self navigationController] popViewControllerAnimated:YES];
     }
 }
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+	UITableView *tableView = self.tableView;
+	
+	switch(type) {
+		case NSFetchedResultsChangeInsert:
+			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+			
+		case NSFetchedResultsChangeDelete:
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+			break;
+			
+        case NSFetchedResultsChangeMove:
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+	}
+}
+
+
 
 -(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer
 {
