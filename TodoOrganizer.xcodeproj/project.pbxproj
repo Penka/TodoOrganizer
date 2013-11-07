@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D4D182BF4FD00ADF213 /* DetailsViewController.m */; };
+		18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18295D57182C051700ADF213 /* DetailsHeaderView.xib */; };
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
 		183C285A1826D53D00CEC80C /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28591826D53D00CEC80C /* Todo.m */; };
 		1894BDF21826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
@@ -22,7 +24,6 @@
 		1894BE111826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
 		1894BE121826791300CDA37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF51826791300CDA37E /* UIKit.framework */; };
 		1894BE131826791300CDA37E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF71826791300CDA37E /* CoreData.framework */; };
-		1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5818290D8500DB28E6 /* DetailViewController.m */; };
 		1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */; };
 		189C80E1182A9F9E008E0BFD /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E0182A9F9E008E0BFD /* Step.m */; };
 		189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189C80E3182AACE2008E0BFD /* AddStepViewController.m */; };
@@ -39,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18295D4C182BF4FD00ADF213 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		18295D4D182BF4FD00ADF213 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		18295D57182C051700ADF213 /* DetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsHeaderView.xib; sourceTree = "<group>"; };
 		183C28521826BF5E00CEC80C /* TodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodosTableViewController.h; sourceTree = "<group>"; };
 		183C28531826BF5E00CEC80C /* TodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodosTableViewController.m; sourceTree = "<group>"; };
 		183C28581826D53D00CEC80C /* Todo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Todo.h; sourceTree = "<group>"; };
@@ -58,8 +62,6 @@
 		1894BE081826791300CDA37E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1894BE0E1826791300CDA37E /* TodoOrganizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoOrganizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1894BE0F1826791300CDA37E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		1896ED5718290D8500DB28E6 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		1896ED5818290D8500DB28E6 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTodoViewController.h; sourceTree = "<group>"; };
 		1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTodoViewController.m; sourceTree = "<group>"; };
 		189C80DF182A9F9E008E0BFD /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
@@ -99,12 +101,13 @@
 			children = (
 				183C28521826BF5E00CEC80C /* TodosTableViewController.h */,
 				183C28531826BF5E00CEC80C /* TodosTableViewController.m */,
-				1896ED5718290D8500DB28E6 /* DetailViewController.h */,
-				1896ED5818290D8500DB28E6 /* DetailViewController.m */,
 				1896ED5A18292B1800DB28E6 /* AddTodoViewController.h */,
 				1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */,
 				189C80E2182AACE2008E0BFD /* AddStepViewController.h */,
 				189C80E3182AACE2008E0BFD /* AddStepViewController.m */,
+				18295D4C182BF4FD00ADF213 /* DetailsViewController.h */,
+				18295D4D182BF4FD00ADF213 /* DetailsViewController.m */,
+				18295D57182C051700ADF213 /* DetailsHeaderView.xib */,
 			);
 			name = ViewControllers;
 			path = TodoOrganizer;
@@ -259,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */,
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
 			);
@@ -279,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */,
+				18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */,
 				183C285A1826D53D00CEC80C /* Todo.m in Sources */,
 				1894BE041826791300CDA37E /* AppDelegate.m in Sources */,
 				183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */,
@@ -286,7 +291,6 @@
 				189C80E1182A9F9E008E0BFD /* Step.m in Sources */,
 				189C80E4182AACE2008E0BFD /* AddStepViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
-				1896ED5918290D8500DB28E6 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

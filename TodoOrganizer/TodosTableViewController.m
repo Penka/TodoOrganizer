@@ -7,7 +7,7 @@
 //
 
 #import "TodosTableViewController.h"
-#import "DetailViewController.h"
+#import "DetailsViewController.h"
 #import "AddTodoViewController.h"
 #import "Todo.h"
 
@@ -56,7 +56,6 @@
     return _fetchedResultsController;
 }
 
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -82,9 +81,9 @@
 		abort();
 	}
     
-    [self setLeftNavigationButton];
+    [self setRightNavigationButton];
     
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     [self setGesturerForCompletingTodo];
 }
@@ -99,8 +98,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
-
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -111,7 +109,6 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-
 {
     return @"My Todos";
 }
@@ -151,16 +148,19 @@
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath] ];
         
+        [self.tableView beginUpdates];
    
-        
         NSError *error;
         if (![context save:&error]) {
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [self.tableView reloadData];
+        
+        [self.tableView endUpdates];
     }
 }
 
@@ -172,30 +172,28 @@
 }
 */
 
-/*
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    return NO;
 }
-*/
-
 
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DetailViewController *detailsViewController = [[DetailViewController alloc] init];
+    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
 
-    detailsViewController.managedObjectContext = self.managedObjectContext;
+    //detailsViewController.managedObjectContext = self.managedObjectContext;
     
     Todo *selectedTodo = (Todo *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
 
     detailsViewController.todo = selectedTodo;
     
-    detailsViewController.fetchedResultsController = self.fetchedResultsController;
+    //detailsViewController.fetchedResultsController = self.fetchedResultsController;
     
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
@@ -210,7 +208,7 @@
     [self.tableView addGestureRecognizer:gestureR];
 }
 
--(void) setLeftNavigationButton
+-(void) setRightNavigationButton
 {
     
     UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
@@ -219,7 +217,7 @@
     addButton.target = self;
     addButton.title = @"Add";
     
-    self.navigationItem.leftBarButtonItem = addButton;
+    self.navigationItem.rightBarButtonItem = addButton;
     
 }
 

@@ -9,8 +9,9 @@
 #import "Todo.h"
 #import "Step.h"
 
-@implementation Todo
+@implementation Todo : NSManagedObject
 
 @dynamic title, deadline, isDone, place, todoDescription, steps;
 
 @end
+

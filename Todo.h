@@ -19,3 +19,11 @@
 @property (nonatomic, strong) NSSet *steps;
 
 @end
+
+
+@interface Todo (CoreDataGeneratedAccessors)
+- (void)addStepsObject:(NSManagedObject *)value;
+- (void)removeStepsObject:(NSManagedObject *)value;
+- (void)addISteps:(NSSet *)value;
+- (void)removeSteps:(NSSet *)value;
+@end
