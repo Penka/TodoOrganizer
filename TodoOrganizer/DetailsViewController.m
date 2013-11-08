@@ -19,7 +19,7 @@
 @synthesize steps;
 
 @synthesize tableHeaderView;
-@synthesize titleTextField, descriptionTextField, placeTextField, deadlineTextField;
+@synthesize titleTextField, descriptionTextField, placeTextField, deadlineDatePicker;
 
 
 - (void)viewDidLoad
@@ -30,26 +30,27 @@
     
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
     
+    deadlineDatePicker.backgroundColor = [UIColor purpleColor];
+    
     if (tableHeaderView == nil) {
         NSArray* view = [[NSBundle mainBundle] loadNibNamed:@"DetailsHeaderView" owner:self options:nil];
         tableHeaderView = [view objectAtIndex:0];
         self.tableView.tableHeaderView = tableHeaderView;
-        self.tableView.allowsSelectionDuringEditing = YES;
-
+        
         [self configureTextFields:NO];
     }
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
     [super viewWillAppear:animated];
 	
 	self.navigationItem.title = todo.title;
     titleTextField.text = todo.title;
     placeTextField.text = todo.place;
-    //deadlineTextField.text = todo.deadline;
+    if(todo.deadline != nil){
+        deadlineDatePicker.date = todo.deadline;
+    }
     descriptionTextField.text = todo.todoDescription;
 
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES];
@@ -61,7 +62,6 @@
     
     [self.tableView reloadData];
 }
-
 
 - (void)viewDidUnload
 {
@@ -96,7 +96,7 @@
     titleTextField.enabled = editing;
 	descriptionTextField.enabled = editing;
 	placeTextField.enabled = editing;
-	deadlineTextField.enabled = editing;
+	deadlineDatePicker.enabled = editing;
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -108,37 +108,58 @@
 	[self.navigationItem setHidesBackButton:editing animated:YES];
 
 	if (!editing) {
+        [self updateTodoFields];
+
 		NSManagedObjectContext *context = todo.managedObjectContext;
-		NSError *error = nil;
+        
+       	
+        NSError *error = nil;
 		if (![context save:&error]) {
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}
+        
+        [self.tableView reloadData];
 	}
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-	if (textField == titleTextField) {
-		todo.title = titleTextField.text;
-	}
-	else if (textField == descriptionTextField) {
-		todo.todoDescription = descriptionTextField.text;
-	}
-    else if (textField == placeTextField) {
-		todo.place = placeTextField.text;
-	}
-//    else if (textField == deadlineTextField) {
-//		todo.deadline = deadlineTextField.text;
+- (void)updateTodoFields{
+    todo.title = titleTextField.text;
+    todo.place = placeTextField.text;
+    todo.todoDescription = descriptionTextField.text;
+    todo.deadline = deadlineDatePicker.date;
+    self.title = todo.title;
+
+}
+
+//- (void) getTodoDetailsData{
+//    todo.title = titleTextField.text;
+//    todo.todoDescription = descriptionTextField.text;
+//    todo.place = placeTextField.text;
+//
+//}
+
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+//	if (textField == titleTextField) {
+//		todo.title = titleTextField.text;
 //	}
-    
-    return YES;
-}
-
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
-	return YES;
-}
+//	else if (textField == descriptionTextField) {
+//		todo.todoDescription = descriptionTextField.text;
+//	}
+//    else if (textField == placeTextField) {
+//		todo.place = placeTextField.text;
+//	}
+////    else if (textField == deadlineTextField) {
+////		todo.deadline = deadlineTextField.text;
+////	}
+//    
+//    return YES;
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+//	[textField resignFirstResponder];
+//	return YES;
+//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

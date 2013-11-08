@@ -18,7 +18,7 @@
     UITextField *titleTextField;
     UITextField *descriptionTextField;
     UITextField *placeTextField;
-    UITextField *deadlineTextField;
+    UIDatePicker *deadlineDatePicker;
 }
 
 @property (nonatomic, retain) Todo *todo;
@@ -28,8 +28,9 @@
 @property (nonatomic, retain) IBOutlet UITextField *placeTextField;
 @property (nonatomic, retain) IBOutlet UITextField *descriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
-@property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
-@property (nonatomic, retain) IBOutlet UISwitch *isDoneSwitch;
+
+@property (retain, nonatomic) IBOutlet UIDatePicker *deadlineDatePicker;
+
 
 
 @end
