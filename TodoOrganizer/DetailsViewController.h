@@ -29,7 +29,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *descriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
 @property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
+@property (nonatomic, retain) IBOutlet UISwitch *isDoneSwitch;
 
-@property (weak, nonatomic) IBOutlet UISwitch *isDoneSwitch;
 
 @end

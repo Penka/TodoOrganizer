@@ -7,6 +7,7 @@
 //
 
 #import "DetailsViewController.h"
+#import "StepDetailsViewController.h"
 
 @interface DetailsViewController ()
 
@@ -27,19 +28,21 @@
 
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
+    
     if (tableHeaderView == nil) {
         NSArray* view = [[NSBundle mainBundle] loadNibNamed:@"DetailsHeaderView" owner:self options:nil];
         tableHeaderView = [view objectAtIndex:0];
         self.tableView.tableHeaderView = tableHeaderView;
         self.tableView.allowsSelectionDuringEditing = YES;
-        self.titleTextField.enabled = NO;
-        self.placeTextField.enabled = NO;
-        self.descriptionTextField.enabled = NO;
-        self.deadlineTextField.enabled = NO;
+
+        [self configureTextFields:NO];
     }
+
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     
     [super viewWillAppear:animated];
 	
@@ -60,7 +63,8 @@
 }
 
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
 	[super viewDidUnload];
     self.tableHeaderView = nil;
 	self.titleTextField = nil;
@@ -83,23 +87,24 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSInteger stepsCount = steps.count;
-//    if (self.editing) {
-//        return stepsCount + 1;
-//    }
-    
-    return stepsCount;
+
+    return stepsCount + 1;
 }
 
-
-- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    
-    [super setEditing:editing animated:animated];
-    
-	titleTextField.enabled = editing;
+- (void) configureTextFields:(BOOL) editing
+{
+    titleTextField.enabled = editing;
 	descriptionTextField.enabled = editing;
 	placeTextField.enabled = editing;
 	deadlineTextField.enabled = editing;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    [super setEditing:editing animated:animated];
     
+    [self configureTextFields:editing];
+	   
 	[self.navigationItem setHidesBackButton:editing animated:YES];
 
 	if (!editing) {
@@ -112,13 +117,9 @@
 	}
 }
 
-
-
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-	
 	if (textField == titleTextField) {
 		todo.title = titleTextField.text;
-		self.navigationItem.title = todo.title;
 	}
 	else if (textField == descriptionTextField) {
 		todo.todoDescription = descriptionTextField.text;
@@ -132,6 +133,7 @@
     
     return YES;
 }
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
@@ -149,18 +151,15 @@
         }
     
         Step *step = [steps objectAtIndex:indexPath.row];
+        if(step.isDone){
+            cell.backgroundColor = [UIColor greenColor];
+        }
         cell.textLabel.text = step.text;
-    }
-    else{
+    } else{
         static NSString *AddStepCellIdentifier = @"AddStepCell";
         
         cell = [tableView dequeueReusableCellWithIdentifier:AddStepCellIdentifier];
-        if (cell == nil) {
-            // Create a cell to display "Add Ingredient".
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddStepCellIdentifier];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        cell.textLabel.text = @"Add step";
+                cell.textLabel.text = @"Add step";
     }
     
     return cell;
@@ -168,10 +167,15 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger stepsCount = steps.count;
+    
+    if(indexPath.row == stepsCount)
+    {
+        return NO;
+    }
+
     return YES;
 }
-
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -203,22 +207,34 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here, for example:
-    // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    Step *selectedStep = nil;
 
-    // Pass the selected object to the new view controller.
+    NSInteger stepsCount = steps.count;
+
+    NSLog(@"%d", indexPath.row);
     
-    // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    if(indexPath.row < stepsCount)
+    {
+        selectedStep = [steps objectAtIndex:indexPath.row];
+    }
+    
+    [self loadStepDetailsView:selectedStep];
 }
- 
- */
+
+- (void)loadStepDetailsView:(Step*) selectedStep
+{
+    StepDetailsViewController *stepDetailViewController = [[StepDetailsViewController alloc] init];
+    
+    stepDetailViewController.todo = todo;
+    stepDetailViewController.step = selectedStep;
+    
+    [self.navigationController pushViewController:stepDetailViewController animated:YES];
+}
 
 @end

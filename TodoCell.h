@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Todo.h"
 
-@interface TodoCell : UITableViewCell {
+@interface TodoCell : UITableViewCell
+{
     Todo *todo;
     
     UILabel *titleLabel;

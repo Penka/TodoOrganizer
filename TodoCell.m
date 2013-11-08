@@ -17,7 +17,6 @@
 
 @synthesize todo, titleLabel, descriptionLabel;
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
 	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -80,9 +79,9 @@
     //[super dealloc];
 }
 
--(void) setTodo:(Todo *)todo{
-    titleLabel.text = todo.title;
-    descriptionLabel.text = todo.todoDescription;
+-(void) setTodo:(Todo *)currentTodo{
+    titleLabel.text = currentTodo.title;
+    descriptionLabel.text = currentTodo.todoDescription;
 }
 
 @end
