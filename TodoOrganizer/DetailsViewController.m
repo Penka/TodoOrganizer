@@ -101,24 +101,7 @@
 	deadlineTextField.enabled = editing;
     
 	[self.navigationItem setHidesBackButton:editing animated:YES];
-	
-    
-	[self.tableView beginUpdates];
-	
-    NSUInteger stepsCount = [todo.steps count];
-    
-    NSArray *stepsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:stepsCount inSection:0]];
-    
-//    if (editing) {
-//        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-//		descriptionTextField.placeholder = @"Overview";
-//	} else {
-//        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
-//		descriptionTextField.placeholder = @"";
-//    }
-    
-    [self.tableView endUpdates];
-	
+
 	if (!editing) {
 		NSManagedObjectContext *context = todo.managedObjectContext;
 		NSError *error = nil;
@@ -150,15 +133,10 @@
     return YES;
 }
 
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
 }
-
-
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -188,28 +166,26 @@
     return cell;
 }
 
-
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+        Step *step = [steps objectAtIndex:indexPath.row];
+        [todo removeStepsObject:step];
+        [steps removeObject:step];
+        
+        NSManagedObjectContext *context = todo.managedObjectContext;
+        [context deleteObject:step];
+        
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];    }
+    }
 
 /*
 // Override to support rearranging the table view.
