@@ -96,7 +96,7 @@
     titleTextField.enabled = editing;
 	descriptionTextField.enabled = editing;
 	placeTextField.enabled = editing;
-	deadlineDatePicker.enabled = editing;
+    [deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
