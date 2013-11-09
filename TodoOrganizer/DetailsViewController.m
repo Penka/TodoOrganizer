@@ -19,7 +19,7 @@
 @synthesize steps;
 
 @synthesize tableHeaderView;
-@synthesize titleTextField, descriptionTextField, placeTextField, deadlineDatePicker;
+@synthesize titleTextField, descriptionTextField, placeTextField, deadlineDatePicker, deadlineTextField;
 
 
 - (void)viewDidLoad
@@ -30,7 +30,8 @@
     
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
     
-    deadlineDatePicker.backgroundColor = [UIColor purpleColor];
+    deadlineTextField.enabled = NO;
+    
     
     if (tableHeaderView == nil) {
         NSArray* view = [[NSBundle mainBundle] loadNibNamed:@"DetailsHeaderView" owner:self options:nil];
@@ -44,10 +45,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    deadlineDatePicker.hidden = YES;
 	
 	self.navigationItem.title = todo.title;
     titleTextField.text = todo.title;
     placeTextField.text = todo.place;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy hh:mm"];
+    
+    NSString *stringFromDate = [formatter stringFromDate:todo.deadline];
+    
+    self.deadlineTextField.text = stringFromDate;
+    
     if(todo.deadline != nil){
         deadlineDatePicker.date = todo.deadline;
     }
@@ -120,7 +131,12 @@
 		}
         
         [self.tableView reloadData];
-	}
+        deadlineTextField.hidden = NO;
+        deadlineDatePicker.hidden = YES;
+	} else {
+        deadlineTextField.hidden = YES;
+        deadlineDatePicker.hidden = NO;
+    }
 }
 
 - (void)updateTodoFields{

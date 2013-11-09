@@ -17,6 +17,7 @@
     UIView *tableHeaderView;
     UITextField *titleTextField;
     UITextField *descriptionTextField;
+    UITextField *deadlineTextField;
     UITextField *placeTextField;
     UIDatePicker *deadlineDatePicker;
 }
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *placeTextField;
 @property (nonatomic, retain) IBOutlet UITextField *descriptionTextField;
 @property (nonatomic, retain) IBOutlet UITextField *titleTextField;
+@property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *deadlineDatePicker;
 
