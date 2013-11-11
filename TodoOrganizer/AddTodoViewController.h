@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TodoDetailsViewController.h"
 
 @interface AddTodoViewController : UIViewController
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

@@ -13,6 +13,8 @@
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
 		183C285A1826D53D00CEC80C /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28591826D53D00CEC80C /* Todo.m */; };
 		188F4758182D079100A83831 /* StepDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F4757182D079100A83831 /* StepDetailsViewController.m */; };
+		189409AC18311251006425DD /* TodoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189409AA18311251006425DD /* TodoDetailsViewController.m */; };
+		189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189409AB18311251006425DD /* TodoDetailsViewController.xib */; };
 		1894BDF21826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
 		1894BDF41826791300CDA37E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF31826791300CDA37E /* CoreGraphics.framework */; };
 		1894BDF61826791300CDA37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF51826791300CDA37E /* UIKit.framework */; };
@@ -52,6 +54,9 @@
 		183C28591826D53D00CEC80C /* Todo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Todo.m; sourceTree = "<group>"; };
 		188F4756182D079100A83831 /* StepDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetailsViewController.h; sourceTree = "<group>"; };
 		188F4757182D079100A83831 /* StepDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetailsViewController.m; sourceTree = "<group>"; };
+		189409A918311251006425DD /* TodoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoDetailsViewController.h; sourceTree = "<group>"; };
+		189409AA18311251006425DD /* TodoDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoDetailsViewController.m; sourceTree = "<group>"; };
+		189409AB18311251006425DD /* TodoDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TodoDetailsViewController.xib; sourceTree = "<group>"; };
 		1894BDEE1826791300CDA37E /* TodoOrganizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoOrganizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1894BDF11826791300CDA37E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1894BDF31826791300CDA37E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -120,6 +125,9 @@
 				18295D57182C051700ADF213 /* DetailsHeaderView.xib */,
 				188F4756182D079100A83831 /* StepDetailsViewController.h */,
 				188F4757182D079100A83831 /* StepDetailsViewController.m */,
+				189409A918311251006425DD /* TodoDetailsViewController.h */,
+				189409AA18311251006425DD /* TodoDetailsViewController.m */,
+				189409AB18311251006425DD /* TodoDetailsViewController.xib */,
 			);
 			name = ViewControllers;
 			path = TodoOrganizer;
@@ -276,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */,
+				189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */,
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
 			);
@@ -303,6 +312,7 @@
 				183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */,
 				1894BE071826791300CDA37E /* TodoOrganizer.xcdatamodeld in Sources */,
 				189C80E1182A9F9E008E0BFD /* Step.m in Sources */,
+				189409AC18311251006425DD /* TodoDetailsViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
 				18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */,
 			);

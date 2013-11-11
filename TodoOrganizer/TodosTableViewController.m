@@ -24,7 +24,6 @@
 
 @implementation TodosTableViewController
 
-
 - (NSFetchedResultsController *)fetchedResultsController
 {
     
@@ -35,6 +34,7 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"Todo" inManagedObjectContext:self.managedObjectContext];
+    
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
@@ -161,27 +161,14 @@
             abort();
         }
         
-        //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
         [self.tableView reloadData];
         
         [self.tableView endUpdates];
     }
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-
-// Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the item to be re-orderable.
     return NO;
 }
 
@@ -196,23 +183,20 @@
 
 #pragma mark - My methods
 
--(void) showTodoDetails :(Todo *)selectedTodo
-{
+-(void) showTodoDetails :(Todo *)selectedTodo {
     DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
     detailsViewController.todo = selectedTodo;
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
--(void) setGesturerForCompletingTodo
-{
+-(void) setGesturerForCompletingTodo {
     UISwipeGestureRecognizer* gestureR;
     gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
     gestureR.direction = UISwipeGestureRecognizerDirectionRight;
     [self.tableView addGestureRecognizer:gestureR];
 }
 
--(void) setRightNavigationButton
-{
+-(void) setRightNavigationButton {
     UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
     
     addButton.action = @selector(changeViewToAddVC);
@@ -225,6 +209,7 @@
 -(void) changeViewToAddVC
 {
     AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
+    addTodoViewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:addTodoViewController animated:YES];
     
 }

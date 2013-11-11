@@ -33,6 +33,4 @@
 
 @property (retain, nonatomic) IBOutlet UIDatePicker *deadlineDatePicker;
 
-
-
 @end

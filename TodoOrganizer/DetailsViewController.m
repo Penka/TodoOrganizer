@@ -32,7 +32,6 @@
     
     deadlineTextField.enabled = NO;
     
-    
     if (tableHeaderView == nil) {
         NSArray* view = [[NSBundle mainBundle] loadNibNamed:@"DetailsHeaderView" owner:self options:nil];
         tableHeaderView = [view objectAtIndex:0];

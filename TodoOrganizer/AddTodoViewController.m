@@ -7,35 +7,55 @@
 //
 
 #import "AddTodoViewController.h"
+#import "Todo.h"
+#import "DetailsViewController.h"
 
 @interface AddTodoViewController ()
 
-@property (strong, nonatomic) UILabel *someLabel;
+@property (nonatomic, strong) TodoDetailsViewController *todoDetailsViewController;
 
 @end
 
 @implementation AddTodoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    self.someLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 100, 200, 150)];
-    self.someLabel.text = @"Adding logic";
-    self.someLabel.backgroundColor = [UIColor blueColor];
+    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
     
-    [self.view addSubview:self.someLabel];
+    [self.view addSubview:self.todoDetailsViewController.view];
     
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveTodo:)];
+
+    saveButton.title = @"Save";
+    
+    
+    self.navigationItem.rightBarButtonItem = saveButton;
+    
+}
+
+- (void)saveTodo:(id)sender
+{
+    NSManagedObjectContext *context = self.managedObjectContext;
+
+    Todo *todo = [NSEntityDescription insertNewObjectForEntityForName:@"Todo" inManagedObjectContext:context];
+	
+    todo.title = self.todoDetailsViewController.titleTextField.text;
+    todo.place = self.todoDetailsViewController.placeTextField.text;
+    todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
+    todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
+    
+    NSError *error = nil;
+	if (![context save:&error]) {
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		abort();
+	}
+	
+    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+    detailsViewController.todo = todo;
+    
+    [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
