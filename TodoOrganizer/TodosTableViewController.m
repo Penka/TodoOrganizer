@@ -197,13 +197,8 @@
 }
 
 -(void) setRightNavigationButton {
-    UIBarButtonItem* addButton = [[UIBarButtonItem alloc] init];
-    
-    addButton.action = @selector(changeViewToAddVC);
-    addButton.target = self;
-    addButton.title = @"Add";
-    
-    self.navigationItem.rightBarButtonItem = addButton;
+    UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(changeViewToAddVC)];
+    self.navigationItem.rightBarButtonItem = addButtonItem;
 }
 
 -(void) changeViewToAddVC
@@ -211,53 +206,12 @@
     AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
     addTodoViewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:addTodoViewController animated:YES];
-    
-}
-
--(void) addTodo
-{
-    NSManagedObjectContext *context = [self managedObjectContext];
-    
-    for (int i = 1; i <= 30; i++) {
-        NSManagedObject *newTodo = [NSEntityDescription
-                                    insertNewObjectForEntityForName:@"Todo"
-                                    inManagedObjectContext:context];
-        NSString *title = [NSString stringWithFormat:@"My Title %d", i];
-        NSString *description = [NSString stringWithFormat:@"Description %d", i];
-        NSString *place = [NSString stringWithFormat:@"Place %d", i];
-        
-        [newTodo setValue:title forKey:@"title"];
-        [newTodo setValue:description forKey:@"todoDescription"];
-        [newTodo setValue:place forKey:@"place"];
-        
-        for (int j = 1; j<= 10; j++) {
-            NSManagedObject *newStep = [NSEntityDescription
-                                        insertNewObjectForEntityForName:@"Step"
-                                        inManagedObjectContext:context];
-            NSString *text = [NSString stringWithFormat:@"Text %d %d", i, j];
-            
-            [newStep setValue:text forKey:@"text"];
-            [newStep setValue:newTodo forKey:@"todo"];
-            
-            NSError *error;
-            if (![context save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            }
-        }
-        
-        NSError *error;
-        if (![context save:&error]) {
-            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-        }
-        
-        [[self navigationController] popViewControllerAnimated:YES];
-    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     UITableView *tableView = self.tableView;
-	
+    
 	switch(type) {
 		case NSFetchedResultsChangeInsert:
 			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];

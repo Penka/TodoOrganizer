@@ -138,38 +138,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/TodosTableViewController.m"
-            timestampString = "405870950.856044"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "-addTodo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoOrganizer/TodosTableViewController.m"
-            timestampString = "405870950.856044"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
-            landmarkName = "-addTodo"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoOrganizer/TodosTableViewController.m"
             timestampString = "405766414.612623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -186,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/TodosTableViewController.m"
-            timestampString = "405766414.612623"
+            timestampString = "405875582.443842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "@implementation TodosTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -410,43 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
+            timestampString = "405882111.87456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "-setEditing:animated:"
             landmarkType = "5">
          </BreakpointContent>
@@ -538,12 +474,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405619343.722537"
+            timestampString = "405876912.96553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "@synthesize titleTextField, descriptionTextField, placeTextField, deadlineDatePicker, deadlineTextField;"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "steps"
             landmarkType = "19">
          </BreakpointContent>
       </BreakpointProxy>
@@ -554,11 +490,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
+            timestampString = "405882111.87456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "@implementation DetailsViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -570,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
+            timestampString = "405882111.87456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -586,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
+            timestampString = "405882111.87456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -602,13 +538,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TodoOrganizer/DetailsViewController.m"
-            timestampString = "405714294.486354"
+            timestampString = "405882111.87456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "-setEditing:animated:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoOrganizer/DetailsViewController.h"
+            timestampString = "405875951.192585"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "todo"
+            landmarkType = "19">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

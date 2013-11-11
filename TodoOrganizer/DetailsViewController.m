@@ -11,6 +11,8 @@
 
 @interface DetailsViewController ()
 
+@property (strong, nonatomic) UITextField *deadlineTextField;
+
 @end
 
 @implementation DetailsViewController
@@ -18,50 +20,33 @@
 @synthesize todo;
 @synthesize steps;
 
-@synthesize tableHeaderView;
-@synthesize titleTextField, descriptionTextField, placeTextField, deadlineDatePicker, deadlineTextField;
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
+    self.deadlineTextField = [[UITextField alloc] initWithFrame:CGRectMake(67, 134, 244, 30)];
+    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
+    [self.todoDetailsViewController.view addSubview:self.deadlineTextField];
+    self.tableView.tableHeaderView = self.todoDetailsViewController.view;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
-    
-    deadlineTextField.enabled = NO;
-    
-    if (tableHeaderView == nil) {
-        NSArray* view = [[NSBundle mainBundle] loadNibNamed:@"DetailsHeaderView" owner:self options:nil];
-        tableHeaderView = [view objectAtIndex:0];
-        self.tableView.tableHeaderView = tableHeaderView;
-        
-        [self configureTextFields:NO];
-    }
+    [self configureTextFields:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    deadlineDatePicker.hidden = YES;
-	
+    self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
 	self.navigationItem.title = todo.title;
-    titleTextField.text = todo.title;
-    placeTextField.text = todo.place;
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MM-yyyy hh:mm"];
-    
-    NSString *stringFromDate = [formatter stringFromDate:todo.deadline];
-    
-    self.deadlineTextField.text = stringFromDate;
+    self.todoDetailsViewController.titleTextField.text = todo.title;
+    self.todoDetailsViewController.placeTextField.text = todo.place;
+    [self updateDeadlineTextField];
     
     if(todo.deadline != nil){
-        deadlineDatePicker.date = todo.deadline;
+        self.todoDetailsViewController.deadlineDatePicker.date = todo.deadline;
     }
-    descriptionTextField.text = todo.todoDescription;
+    self.todoDetailsViewController.descriptionTextField.text = todo.todoDescription;
 
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
@@ -76,10 +61,6 @@
 - (void)viewDidUnload
 {
 	[super viewDidUnload];
-    self.tableHeaderView = nil;
-	self.titleTextField = nil;
-	self.descriptionTextField = nil;
-	self.placeTextField = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,10 +84,11 @@
 
 - (void) configureTextFields:(BOOL) editing
 {
-    titleTextField.enabled = editing;
-	descriptionTextField.enabled = editing;
-	placeTextField.enabled = editing;
-    [deadlineDatePicker setUserInteractionEnabled:editing];
+    self.todoDetailsViewController.titleTextField.enabled = editing;
+	self.todoDetailsViewController.descriptionTextField.enabled = editing;
+	self.todoDetailsViewController.placeTextField.enabled = editing;
+    self.deadlineTextField.enabled = editing;
+    [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -122,59 +104,41 @@
 
 		NSManagedObjectContext *context = todo.managedObjectContext;
         
-       	
         NSError *error = nil;
 		if (![context save:&error]) {
 			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 			abort();
 		}
         
-        [self.tableView reloadData];
-        deadlineTextField.hidden = NO;
-        deadlineDatePicker.hidden = YES;
-	} else {
-        deadlineTextField.hidden = YES;
-        deadlineDatePicker.hidden = NO;
+        self.deadlineTextField.hidden = NO;
+        self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
+        [self updateDeadlineTextField];
+
+    }
+    else{
+        self.deadlineTextField.hidden = YES;
+        self.todoDetailsViewController.deadlineDatePicker.hidden = NO;
     }
 }
 
-- (void)updateTodoFields{
-    todo.title = titleTextField.text;
-    todo.place = placeTextField.text;
-    todo.todoDescription = descriptionTextField.text;
-    todo.deadline = deadlineDatePicker.date;
+- (void)updateDeadlineTextField
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy hh:mm"];
+    
+    NSString *stringFromDate = [formatter stringFromDate:todo.deadline];
+    self.deadlineTextField.text = stringFromDate;
+}
+
+- (void)updateTodoFields
+{
+    todo.title = self.todoDetailsViewController.titleTextField.text;
+    todo.place = self.todoDetailsViewController.placeTextField.text;
+    todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
+    todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
     self.title = todo.title;
 
 }
-
-//- (void) getTodoDetailsData{
-//    todo.title = titleTextField.text;
-//    todo.todoDescription = descriptionTextField.text;
-//    todo.place = placeTextField.text;
-//
-//}
-
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-//	if (textField == titleTextField) {
-//		todo.title = titleTextField.text;
-//	}
-//	else if (textField == descriptionTextField) {
-//		todo.todoDescription = descriptionTextField.text;
-//	}
-//    else if (textField == placeTextField) {
-//		todo.place = placeTextField.text;
-//	}
-////    else if (textField == deadlineTextField) {
-////		todo.deadline = deadlineTextField.text;
-////	}
-//    
-//    return YES;
-//}
-//
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//	[textField resignFirstResponder];
-//	return YES;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -246,15 +210,12 @@
 
 #pragma mark - Table view delegate
 
-// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Step *selectedStep = nil;
 
     NSInteger stepsCount = steps.count;
 
-    NSLog(@"%d", indexPath.row);
-    
     if(indexPath.row < stepsCount)
     {
         selectedStep = [steps objectAtIndex:indexPath.row];

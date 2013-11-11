@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D4D182BF4FD00ADF213 /* DetailsViewController.m */; };
-		18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18295D57182C051700ADF213 /* DetailsHeaderView.xib */; };
 		18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D5C182C28AE00ADF213 /* TodoCell.m */; };
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
 		183C285A1826D53D00CEC80C /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28591826D53D00CEC80C /* Todo.m */; };
@@ -45,7 +44,6 @@
 /* Begin PBXFileReference section */
 		18295D4C182BF4FD00ADF213 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		18295D4D182BF4FD00ADF213 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		18295D57182C051700ADF213 /* DetailsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailsHeaderView.xib; sourceTree = "<group>"; };
 		18295D5B182C28AE00ADF213 /* TodoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoCell.h; sourceTree = "<group>"; };
 		18295D5C182C28AE00ADF213 /* TodoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoCell.m; sourceTree = "<group>"; };
 		183C28521826BF5E00CEC80C /* TodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodosTableViewController.h; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */,
 				18295D4C182BF4FD00ADF213 /* DetailsViewController.h */,
 				18295D4D182BF4FD00ADF213 /* DetailsViewController.m */,
-				18295D57182C051700ADF213 /* DetailsHeaderView.xib */,
 				188F4756182D079100A83831 /* StepDetailsViewController.h */,
 				188F4757182D079100A83831 /* StepDetailsViewController.m */,
 				189409A918311251006425DD /* TodoDetailsViewController.h */,
@@ -283,7 +280,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18295D58182C051700ADF213 /* DetailsHeaderView.xib in Resources */,
 				189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */,
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
