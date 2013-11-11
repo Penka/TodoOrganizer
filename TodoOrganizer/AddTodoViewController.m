@@ -22,17 +22,20 @@
 {
     [super viewDidLoad];
     
-    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
+    self.navigationController.navigationBar.translucent = NO;
     
-    [self.view addSubview:self.todoDetailsViewController.view];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveTodo:)];
 
     saveButton.title = @"Save";
     
-    
     self.navigationItem.rightBarButtonItem = saveButton;
     
+    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
+    
+    [self.view addSubview:self.todoDetailsViewController.view];
+
 }
 
 - (void)saveTodo:(id)sender
