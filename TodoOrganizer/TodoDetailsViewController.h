@@ -15,4 +15,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *descriptionTextField;
 @property (nonatomic, retain) IBOutlet UIDatePicker *deadlineDatePicker;
 
+
+@property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
 @end

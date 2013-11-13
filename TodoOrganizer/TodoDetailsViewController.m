@@ -14,7 +14,7 @@
 
 @implementation TodoDetailsViewController
 
-@synthesize titleTextField, placeTextField, descriptionTextField, deadlineDatePicker;
+@synthesize titleTextField, placeTextField, descriptionTextField, deadlineDatePicker, deadlineTextField;
 
 
 - (void)viewDidLoad

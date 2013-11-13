@@ -11,7 +11,7 @@
 
 @interface DetailsViewController ()
 
-@property (strong, nonatomic) UITextField *deadlineTextField;
+//@property (strong, nonatomic) UITextField *deadlineTextField;
 
 @end
 
@@ -24,9 +24,18 @@
 {
     [super viewDidLoad];
 
-    self.deadlineTextField = [[UITextField alloc] initWithFrame:CGRectMake(67, 134, 244, 30)];
+//    self.deadlineTextField = [[UITextField alloc] initWithFrame:CGRectMake(67, 134, 244, 30)];
+//    
+//    [self.deadlineTextField.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
+//    [self.deadlineTextField.layer setBorderWidth:1.0];
+//    
+//    //The rounded corner part, where you specify your view's corner radius:
+//    self.deadlineTextField.layer.cornerRadius = 5;
+//    self.deadlineTextField.clipsToBounds = YES;
+    
+    
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
-    [self.todoDetailsViewController.view addSubview:self.deadlineTextField];
+    //[self.todoDetailsViewController.view addSubview:self.deadlineTextField];
     self.tableView.tableHeaderView = self.todoDetailsViewController.view;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
@@ -87,7 +96,7 @@
     self.todoDetailsViewController.titleTextField.enabled = editing;
 	self.todoDetailsViewController.descriptionTextField.enabled = editing;
 	self.todoDetailsViewController.placeTextField.enabled = editing;
-    self.deadlineTextField.enabled = editing;
+    self.todoDetailsViewController.deadlineTextField.enabled = editing;
     [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
@@ -110,13 +119,12 @@
 			abort();
 		}
         
-        self.deadlineTextField.hidden = NO;
+        self.todoDetailsViewController.deadlineTextField.hidden = NO;
         self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
         [self updateDeadlineTextField];
-
     }
     else{
-        self.deadlineTextField.hidden = YES;
+        self.todoDetailsViewController.deadlineTextField.hidden = YES;
         self.todoDetailsViewController.deadlineDatePicker.hidden = NO;
     }
 }
@@ -127,7 +135,7 @@
     [formatter setDateFormat:@"dd-MM-yyyy hh:mm"];
     
     NSString *stringFromDate = [formatter stringFromDate:todo.deadline];
-    self.deadlineTextField.text = stringFromDate;
+    self.todoDetailsViewController.deadlineTextField.text = stringFromDate;
 }
 
 - (void)updateTodoFields

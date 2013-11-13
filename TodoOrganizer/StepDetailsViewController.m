@@ -84,6 +84,7 @@
     stepTextTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     stepTextTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     stepTextTextField.tag = 0;
+    stepTextTextField.placeholder = @"Step Title";
     
     stepTextTextField.clearButtonMode = UITextFieldViewModeNever; // no clear 'x' button to the right
     [stepTextTextField setEnabled: YES];

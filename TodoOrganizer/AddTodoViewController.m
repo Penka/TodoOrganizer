@@ -32,10 +32,14 @@
     
     self.navigationItem.rightBarButtonItem = saveButton;
     
-    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
-    
-    [self.view addSubview:self.todoDetailsViewController.view];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
 
+    //cancel button
+    
+    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
+    [self.view addSubview:self.todoDetailsViewController.view];
+    [self.todoDetailsViewController.deadlineTextField setHidden:YES];
 }
 
 - (void)saveTodo:(id)sender
@@ -59,6 +63,11 @@
     detailsViewController.todo = todo;
     
     [self.navigationController pushViewController:detailsViewController animated:YES];
+}
+
+- (void)cancel:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
