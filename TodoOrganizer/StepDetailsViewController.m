@@ -86,7 +86,7 @@
     stepTextTextField.tag = 0;
     stepTextTextField.placeholder = @"Step Title";
     
-    stepTextTextField.clearButtonMode = UITextFieldViewModeNever; // no clear 'x' button to the right
+    stepTextTextField.clearButtonMode = UITextFieldViewModeNever;
     [stepTextTextField setEnabled: YES];
     stepTextTextField.text = step.text;
 }
@@ -95,7 +95,7 @@
 {
     isDoneSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(199, 8, 0, 0)];
     [isDoneSwitch addTarget:self action:@selector(switchToggled:) forControlEvents: UIControlEventTouchUpInside];  
-    [isDoneSwitch setOn:step.isDone animated:NO];
+    [isDoneSwitch setOn:step.isDone.boolValue animated:NO];
 }
 
 - (void) switchToggled:(id)sender {
@@ -124,10 +124,10 @@
     step.text = stepTextTextField.text;
     
     BOOL isStepDone = [isDoneSwitch isOn];
+    //step.isDone = isStepDone;
     NSNumber *num = [NSNumber numberWithBool:isStepDone];
-    
     [step setValue:num forKey:@"isDone"];
-    
+
     NSError *error = nil;
 	if (![context save:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);

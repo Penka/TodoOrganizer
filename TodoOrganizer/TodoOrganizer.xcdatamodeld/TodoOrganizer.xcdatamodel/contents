@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="12F45" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Step" syncable="YES">
+    <entity name="Step" representedClassName="Step" syncable="YES">
         <attribute name="isDone" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="todo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Todo" inverseName="steps" inverseEntity="Todo" syncable="YES"/>
     </entity>
-    <entity name="Todo" syncable="YES">
+    <entity name="Todo" representedClassName="Todo" syncable="YES">
         <attribute name="deadline" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="isDone" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="place" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,7 +14,7 @@
         <relationship name="steps" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Step" inverseName="todo" inverseEntity="Step" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Step" positionX="-17858" positionY="-11826" width="128" height="88"/>
-        <element name="Todo" positionX="-18099" positionY="-11853" width="126" height="133"/>
+        <element name="Step" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Todo" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
