@@ -2,28 +2,30 @@
 //  Todo.h
 //  TodoOrganizer
 //
-//  Created by Apple on 11/3/13.
+//  Created by Apple on 11/14/13.
 //  Copyright (c) 2013 Some. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "Step.h"
+
+@class Step;
 
 @interface Todo : NSManagedObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSDate *deadline;
-@property (nonatomic) Boolean isDone;
-@property (nonatomic, strong) NSString *place;
-@property (nonatomic, strong) NSString *todoDescription;
-@property (nonatomic, strong) NSSet *steps;
-
+@property (nonatomic, retain) NSDate * deadline;
+@property (nonatomic, retain) NSNumber * isDone;
+@property (nonatomic, retain) NSString * place;
+@property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * todoDescription;
+@property (nonatomic, retain) NSSet *steps;
 @end
 
-
 @interface Todo (CoreDataGeneratedAccessors)
-- (void)addStepsObject:(NSManagedObject *)value;
-- (void)removeStepsObject:(NSManagedObject *)value;
-- (void)addISteps:(NSSet *)value;
-- (void)removeSteps:(NSSet *)value;
+
+- (void)addStepsObject:(Step *)value;
+- (void)removeStepsObject:(Step *)value;
+- (void)addSteps:(NSSet *)values;
+- (void)removeSteps:(NSSet *)values;
+
 @end

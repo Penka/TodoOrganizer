@@ -11,8 +11,6 @@
 
 @interface DetailsViewController ()
 
-//@property (strong, nonatomic) UITextField *deadlineTextField;
-
 @end
 
 @implementation DetailsViewController
@@ -23,22 +21,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-//    self.deadlineTextField = [[UITextField alloc] initWithFrame:CGRectMake(67, 134, 244, 30)];
-//    
-//    [self.deadlineTextField.layer setBorderColor:[[[UIColor grayColor] colorWithAlphaComponent:0.5] CGColor]];
-//    [self.deadlineTextField.layer setBorderWidth:1.0];
-//    
-//    //The rounded corner part, where you specify your view's corner radius:
-//    self.deadlineTextField.layer.cornerRadius = 5;
-//    self.deadlineTextField.clipsToBounds = YES;
-    
-    
+   
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
-    //[self.todoDetailsViewController.view addSubview:self.deadlineTextField];
     self.tableView.tableHeaderView = self.todoDetailsViewController.view;
+    self.tableView.allowsSelectionDuringEditing = YES;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
+    
     [self configureTextFields:NO];
 }
 
@@ -77,40 +67,32 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger stepsCount = steps.count;
-
-    return stepsCount + 1;
-}
-
-- (void) configureTextFields:(BOOL) editing
-{
-    self.todoDetailsViewController.titleTextField.enabled = editing;
-	self.todoDetailsViewController.descriptionTextField.enabled = editing;
-	self.todoDetailsViewController.placeTextField.enabled = editing;
-    self.todoDetailsViewController.deadlineTextField.enabled = editing;
-    [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
-}
-
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     [super setEditing:editing animated:animated];
     
     [self configureTextFields:editing];
-	   
+    
 	[self.navigationItem setHidesBackButton:editing animated:YES];
+    
+    [self.tableView beginUpdates];
+
+    NSUInteger stepsCount = [todo.steps count];
+    
+    NSArray *stepsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:stepsCount inSection:0]];
+    
+    if (editing) {
+        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+	} else {
+        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+    }
+
+    
+    [self.tableView endUpdates];
 
 	if (!editing) {
         [self updateTodoFields];
-
+        
 		NSManagedObjectContext *context = todo.managedObjectContext;
         
         NSError *error = nil;
@@ -124,10 +106,39 @@
         [self updateDeadlineTextField];
     }
     else{
+        
         self.todoDetailsViewController.deadlineTextField.hidden = YES;
         self.todoDetailsViewController.deadlineDatePicker.hidden = NO;
     }
 }
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger stepsCount = todo.steps.count;
+    
+    if ([self isEditing]) {
+        stepsCount++;
+    }
+    
+    return stepsCount;
+}
+
+- (void) configureTextFields:(BOOL) editing
+{
+    self.todoDetailsViewController.titleTextField.enabled = editing;
+	self.todoDetailsViewController.descriptionTextField.enabled = editing;
+	self.todoDetailsViewController.placeTextField.enabled = editing;
+    self.todoDetailsViewController.deadlineTextField.enabled = editing;
+    [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
+}
+
 
 - (void)updateDeadlineTextField
 {
@@ -152,10 +163,11 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    
     if(indexPath.row < steps.count){
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
     
         Step *step = [steps objectAtIndex:indexPath.row];
@@ -163,11 +175,15 @@
             cell.backgroundColor = [UIColor greenColor];
         }
         cell.textLabel.text = step.text;
-    } else{
+    } else {
         static NSString *AddStepCellIdentifier = @"AddStepCell";
-        
         cell = [tableView dequeueReusableCellWithIdentifier:AddStepCellIdentifier];
-                cell.textLabel.text = @"Add step";
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AddStepCellIdentifier];
+        }
+
+        cell.textLabel.text = @"Add step";
     }
     
     return cell;
@@ -175,14 +191,18 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger stepsCount = steps.count;
-    
-    if(indexPath.row == stepsCount)
-    {
-        return NO;
-    }
-
     return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	UITableViewCellEditingStyle style = UITableViewCellEditingStyleDelete;
+    
+    if (indexPath.row == [todo.steps count]) {
+        style = UITableViewCellEditingStyleInsert;
+    }
+    
+    return style;
 }
 
 // Override to support editing the table view.
@@ -196,36 +216,25 @@
         NSManagedObjectContext *context = todo.managedObjectContext;
         [context deleteObject:step];
         
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];    }
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark - Table view delegate
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSIndexPath *rowToSelect = indexPath;
+  
+	return rowToSelect;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Step *selectedStep = nil;
 
-    NSInteger stepsCount = steps.count;
+    NSInteger stepsCount = todo.steps.count;
 
-    if(indexPath.row < stepsCount)
-    {
+    if(indexPath.row < stepsCount) {
         selectedStep = [steps objectAtIndex:indexPath.row];
     }
     

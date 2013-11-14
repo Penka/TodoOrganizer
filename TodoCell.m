@@ -31,8 +31,9 @@
         [titleLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
         [titleLabel setTextColor:[UIColor blackColor]];
         [titleLabel setHighlightedTextColor:[UIColor whiteColor]];
-        //titleLabel.text = todo.title;
         [self.contentView addSubview:titleLabel];
+        
+        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return self;
