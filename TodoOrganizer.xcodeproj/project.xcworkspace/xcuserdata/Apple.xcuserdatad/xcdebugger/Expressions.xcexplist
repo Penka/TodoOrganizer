@@ -6,7 +6,7 @@
          contextName = "-[StepDetailsViewController saveStep:]:StepDetailsViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "[isDoneSwitch isOn]">
+               value = "step.isDone">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
