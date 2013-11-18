@@ -8,6 +8,7 @@
 
 #import "DetailsViewController.h"
 #import "StepDetailsViewController.h"
+#import "PlaceViewController.h"
 
 @interface DetailsViewController ()
 
@@ -30,6 +31,14 @@
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
     
     [self configureTextFields:NO];
+    
+    [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
+}
+
+- (void)viewPlaceInMaps
+{
+    PlaceViewController *vc = [[PlaceViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

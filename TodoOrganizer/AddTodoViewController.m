@@ -35,11 +35,10 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)];
     self.navigationItem.leftBarButtonItem = cancelButton;
 
-    //cancel button
-    
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
     [self.view addSubview:self.todoDetailsViewController.view];
     [self.todoDetailsViewController.deadlineTextField setHidden:YES];
+    self.todoDetailsViewController.viewPlaceButton.hidden = YES;
 }
 
 - (void)saveTodo:(id)sender
