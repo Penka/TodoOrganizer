@@ -10,14 +10,12 @@
 #import "DetailsViewController.h"
 #import "AddTodoViewController.h"
 #import "Todo.h"
-#import "TodoCell.h"
+#import "TodoTableViewCell.h"
 
 @interface TodosTableViewController ()
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
--(void) handleSwipeFrom:(UIGestureRecognizer *) sender;
--(void) completeTodo:(Todo *) todo;
 -(void) changeViewToAddVC;
 
 @end
@@ -56,15 +54,6 @@
     return _fetchedResultsController;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -73,7 +62,7 @@
     
     self.fetchedResultsController = nil;
     
-    [self.tableView registerClass: [TodoCell class] forCellReuseIdentifier:@"TodoCellIdentifier"];
+    [self.tableView registerClass: [TodoTableViewCell class] forCellReuseIdentifier:@"TodoCellIdentifier"];
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -82,10 +71,7 @@
 	}
     
     [self setRightNavigationButton];
-    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    
-    [self setGesturerForCompletingTodo];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,24 +101,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *TodoCellIdentifier = @"TodoCellIdentifier";
-    
-    TodoCell *cell = (TodoCell *)[self.tableView dequeueReusableCellWithIdentifier:TodoCellIdentifier];
-
-    if (cell == nil) {
-        cell = [[TodoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TodoCellIdentifier];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    //cell.textLabel.text = todo.title;
-    cell.todo = todo;
     
-    if(todo.isDone){
-        cell.backgroundColor = [UIColor orangeColor];
+    static NSString *cellIdentifier = @"Cell";
+    
+    TodoTableViewCell *cell = (TodoTableViewCell *)[table dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (cell == nil) {        
+        cell = [[TodoTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:table currentTodo:todo];
+        //cell.delegate = self;
     }
+    //cell.textLabel.text = todo.title;
+    
+    else{
+        [cell loadUIElements];
+    }
+    
     return cell;
 }
+
+- (void)swippableTableViewCell:(TodoTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
+    switch (index) {
+        case 0:
+        {
+            NSLog(@"First button was pressed");
+            UIAlertView *alertTest = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"Fiiirst!" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
+            [alertTest show];
+            
+            [cell hideUtilityButtonsAnimated:YES];
+            break;
+        }
+    }
+}
+
+
+
+
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -189,13 +193,6 @@
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
--(void) setGesturerForCompletingTodo {
-    UISwipeGestureRecognizer* gestureR;
-    gestureR = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
-    gestureR.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.tableView addGestureRecognizer:gestureR];
-}
-
 -(void) setRightNavigationButton {
     UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(changeViewToAddVC)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
@@ -220,30 +217,6 @@
 		case NSFetchedResultsChangeDelete:
 			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
-    }
-}
-
--(void) handleSwipeFrom : (UIGestureRecognizer *) gestureRecognizer
-{
-    if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint swipeLocation = [gestureRecognizer locationInView:self.tableView];
-        NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];
-        //UITableViewCell* swipedCell = [self.tableView cellForRowAtIndexPath:swipedIndexPath];
-        
-        Todo *todo = [self.fetchedResultsController objectAtIndexPath:swipedIndexPath];
-        
-        [self completeTodo:todo];
-    }
-}
-
--(void) completeTodo:(Todo *) todo
-{
-    [todo setValue:[NSNumber numberWithBool:YES] forKey:@"isDone"];
-    
-    NSError *error;
-    if(![self.managedObjectContext save:&error]){
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
     }
 }
 

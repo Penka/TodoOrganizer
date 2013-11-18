@@ -124,9 +124,6 @@
     step.text = stepTextTextField.text;
     
     BOOL isStepDone = [isDoneSwitch isOn];
-    //step.isDone = isStepDone;
-//    NSNumber *num = [NSNumber numberWithBool:isStepDone];
-//    [step setValue:num forKey:@"isDone"];
 
     [self.step setValue:[NSNumber numberWithBool:isStepDone] forKey:@"isDone"];
     

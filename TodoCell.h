@@ -22,4 +22,7 @@
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *descriptionLabel;
 
+@property (strong, nonatomic) UIButton *completeTodoButton;
+
 @end
+

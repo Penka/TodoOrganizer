@@ -10,5 +10,21 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[TodosTableViewController tableView:cellForRowAtIndexPath:]:TodosTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "todo.isDone.boolValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__39-[TodoCell gestureToShowCompleteButton]_block_invoke:TodoCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.completeTodoButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

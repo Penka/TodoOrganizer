@@ -9,13 +9,16 @@
 #import "TodoCell.h"
 
 @interface TodoCell (SubviewFrames)
+
+
 - (CGRect) _titleLabelFrame;
 - (CGRect) _descriptionLabelFrame;
+
 @end
 
 @implementation TodoCell
 
-@synthesize todo, titleLabel, descriptionLabel;
+@synthesize todo, titleLabel, descriptionLabel, completeTodoButton;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
@@ -34,10 +37,49 @@
         [self.contentView addSubview:titleLabel];
         
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+        
+        self.completeTodoButton = [[UIButton alloc] init];
+        
+        
+        
+        UISwipeGestureRecognizer *completeTodoRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gestureToShowCompleteButton)];
+        completeTodoRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [completeTodoRecognizer setNumberOfTouchesRequired:1];
+        [self addGestureRecognizer:completeTodoRecognizer];
     }
     
     return self;
 }
+
+
+
+
+
+
+- (void)gestureToShowCompleteButton {
+    if (!self.highlighted) {
+        self.completeTodoButton.hidden = YES;
+        NSTimer *endHighlightTimer = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(timerEndCellHighlight:) userInfo:nil repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:endHighlightTimer forMode:NSRunLoopCommonModes];
+        [self setHighlighted:YES];
+    }
+}
+
+- (void)timerEndCellHighlight:(id)sender {
+    if (self.highlighted) {
+        self.completeTodoButton.hidden = NO;
+        [self setHighlighted:NO];
+    }
+}
+
+
+
+
+
+
+
+
 
 - (void)layoutSubviews {
     

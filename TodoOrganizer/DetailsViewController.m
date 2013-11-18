@@ -34,8 +34,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData];
-
     [super viewWillAppear:animated];
     
     self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
@@ -55,6 +53,8 @@
 	NSMutableArray *sortedSteps = [[NSMutableArray alloc] initWithArray:[todo.steps allObjects]];
 	[sortedSteps sortUsingDescriptors:sortDescriptors];
 	self.steps = sortedSteps;
+    
+    [self.tableView reloadData];
     
 }
 
@@ -175,6 +175,10 @@
         if(step.isDone.boolValue){
             cell.backgroundColor = [UIColor greenColor];
         }
+        else {
+            cell.backgroundColor = [UIColor whiteColor];
+        }
+        
         cell.textLabel.text = step.text;
     } else {
         static NSString *AddStepCellIdentifier = @"AddStepCell";
