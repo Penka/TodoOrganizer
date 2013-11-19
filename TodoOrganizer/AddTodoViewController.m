@@ -66,6 +66,8 @@
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        
+       
 	
         DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
         detailsViewController.todo = todo;

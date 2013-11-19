@@ -159,11 +159,10 @@
     [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
-
 - (void)updateDeadlineTextField
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd-MM-yyyy hh:mm"];
+    [formatter setDateFormat:@"dd-MM-yyyy HH:mm"];
     
     NSString *stringFromDate = [formatter stringFromDate:todo.deadline];
     self.todoDetailsViewController.deadlineTextField.text = stringFromDate;

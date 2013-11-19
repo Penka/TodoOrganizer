@@ -3,18 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[StepDetailsViewController saveStep:]:StepDetailsViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "step.isDone">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[TodosTableViewController tableView:cellForRowAtIndexPath:]:TodosTableViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "todo.isDone.boolValue">
+               value = "todo.title">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -23,6 +15,14 @@
          <PersistentStrings>
             <PersistentString
                value = "self.completeTodoButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[StepDetailsViewController saveStep:]:StepDetailsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "step.isDone">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -36,9 +36,14 @@
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"title" ascending:NO];
+                              initWithKey:@"deadline" ascending:YES];
+    NSSortDescriptor *sortByDone = [[NSSortDescriptor alloc]
+                              initWithKey:@"isDone" ascending:YES];
     
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    NSArray *sortDescriptors = @[sortByDone, sort];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+     //[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
     [NSFetchedResultsController deleteCacheWithName:@"Root"];
@@ -54,12 +59,24 @@
     return _fetchedResultsController;
 }
 
+- (void) scheduleNotification:(Todo *)todo
+{
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    
+    //Setting the notification 30 minutes before the deadline.
+    NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
+    localNotification.fireDate = fireDate;
+    localNotification.alertBody = todo.title;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    //[self addTodo];
-    
     self.fetchedResultsController = nil;
     
     [self.tableView registerClass: [TodoTableViewCell class] forCellReuseIdentifier:@"TodoCellIdentifier"];
@@ -72,6 +89,8 @@
     
     [self setRightNavigationButton];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,15 +122,17 @@
 {
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    if((!todo.isDone.boolValue) && ([todo.deadline compare:[NSDate date]]==NSOrderedDescending)){
+        [self scheduleNotification:todo];
+    }
+    
     static NSString *cellIdentifier = @"Cell";
     
     TodoTableViewCell *cell = (TodoTableViewCell *)[table dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {        
         cell = [[TodoTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier containingTableView:table currentTodo:todo];
-        //cell.delegate = self;
     }
-    //cell.textLabel.text = todo.title;
     
     else{
         [cell loadUIElements];
@@ -119,23 +140,6 @@
     
     return cell;
 }
-
-- (void)swippableTableViewCell:(TodoTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
-    switch (index) {
-        case 0:
-        {
-            NSLog(@"First button was pressed");
-            UIAlertView *alertTest = [[UIAlertView alloc] initWithTitle:@"Hello" message:@"Fiiirst!" delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles: nil];
-            [alertTest show];
-            
-            [cell hideUtilityButtonsAnimated:YES];
-            break;
-        }
-    }
-}
-
-
-
 
 
 // Override to support conditional editing of the table view.
