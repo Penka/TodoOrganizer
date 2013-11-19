@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "TodosTableViewController.h"
 #import "Todo.h"
-#import <GoogleMapsM4B/GoogleMaps.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation AppDelegate
 
@@ -21,7 +21,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [GMSServices provideAPIKey:@"AIzaSyBpqOi9ESCiuNgcSx-ZrowUCVer4E_gsS0"];
+    [GMSServices provideAPIKey:@"AIzaSyAXAYKriuXEZYsjE047QwtIBDTcVccIJX8"];
     
     TodosTableViewController *todosViewController = [[TodosTableViewController alloc] init];
     todosViewController.managedObjectContext = self.managedObjectContext;

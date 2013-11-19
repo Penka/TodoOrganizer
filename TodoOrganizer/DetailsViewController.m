@@ -101,20 +101,30 @@
     [self.tableView endUpdates];
 
 	if (!editing) {
-        [self updateTodoFields];
+        if(![self.todoDetailsViewController isDataValid]){
+            UIAlertView *ErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                                 message:@"Todo title is mandatory." delegate:nil
+                                                       cancelButtonTitle:@"OK"
+                                                       otherButtonTitles:nil, nil];
+            [ErrorAlert show];
+            self.editing = YES;
+            //[ErrorAlert release];
+        }
+        else{
+            [self updateTodoFields];
         
-		NSManagedObjectContext *context = todo.managedObjectContext;
+            NSManagedObjectContext *context = todo.managedObjectContext;
         
-        NSError *error = nil;
-		if (![context save:&error]) {
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			abort();
-		}
+            NSError *error = nil;
+            if (![context save:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                abort();
+            }
         
-        self.todoDetailsViewController.deadlineTextField.hidden = NO;
-        self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
-        [self updateDeadlineTextField];
-    }
+            self.todoDetailsViewController.deadlineTextField.hidden = NO;
+            self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
+            [self updateDeadlineTextField];}
+        }
     else{
         
         self.todoDetailsViewController.deadlineTextField.hidden = YES;

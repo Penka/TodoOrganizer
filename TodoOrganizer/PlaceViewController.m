@@ -7,7 +7,7 @@
 //
 
 #import "PlaceViewController.h"
-#import <GoogleMapsM4B/GoogleMaps.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface PlaceViewController ()
 
@@ -37,6 +37,16 @@
     marker.title = @"Sydney";
     marker.snippet = @"Australia";
     marker.map = mapView_;
+    
+    
+    if ([[UIApplication sharedApplication] canOpenURL:
+         [NSURL URLWithString:@"comgooglemaps://"]]) {
+        [[UIApplication sharedApplication] openURL:
+         [NSURL URLWithString:@"comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"]];
+    } else {
+        NSLog(@"Can't use comgooglemaps://");
+    }
+
 }
 
 - (void)didReceiveMemoryWarning

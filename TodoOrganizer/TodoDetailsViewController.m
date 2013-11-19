@@ -7,6 +7,7 @@
 //
 
 #import "TodoDetailsViewController.h"
+#import "Todo.h"
 
 @interface TodoDetailsViewController ()
 
@@ -27,6 +28,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)isDataValid{
+    if([self.titleTextField.text length] > 0){
+        return YES;
+    }
+    return NO;
 }
 
 @end

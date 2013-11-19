@@ -43,25 +43,35 @@
 
 - (void)saveTodo:(id)sender
 {
-    NSManagedObjectContext *context = self.managedObjectContext;
+    if(![self.todoDetailsViewController isDataValid]){
+        UIAlertView *ErrorAlert = [[UIAlertView alloc] initWithTitle:@"Error!"
+                                                             message:@"Todo title is mandatory." delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles:nil, nil];
+        [ErrorAlert show];
+        //[ErrorAlert release];
+    }
+    else{
+        NSManagedObjectContext *context = self.managedObjectContext;
 
-    Todo *todo = [NSEntityDescription insertNewObjectForEntityForName:@"Todo" inManagedObjectContext:context];
+        Todo *todo = [NSEntityDescription insertNewObjectForEntityForName:@"Todo" inManagedObjectContext:context];
 	
-    todo.title = self.todoDetailsViewController.titleTextField.text;
-    todo.place = self.todoDetailsViewController.placeTextField.text;
-    todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
-    todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
+        todo.title = self.todoDetailsViewController.titleTextField.text;
+        todo.place = self.todoDetailsViewController.placeTextField.text;
+        todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
+        todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
     
-    NSError *error = nil;
-	if (![context save:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		abort();
-	}
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
 	
-    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-    detailsViewController.todo = todo;
+        DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+        detailsViewController.todo = todo;
     
-    [self.navigationController pushViewController:detailsViewController animated:YES];
+        [self.navigationController pushViewController:detailsViewController animated:YES];
+    }
 }
 
 - (void)cancel:(id)sender

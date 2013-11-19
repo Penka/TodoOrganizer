@@ -17,4 +17,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *viewPlaceButton;
 
 @property (nonatomic, retain) IBOutlet UITextField *deadlineTextField;
+
+- (BOOL) isDataValid;
 @end

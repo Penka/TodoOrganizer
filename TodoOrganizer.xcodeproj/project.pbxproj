@@ -22,8 +22,8 @@
 		188E59E2183A57CE00A60644 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59E1183A57CE00A60644 /* QuartzCore.framework */; };
 		188E59E4183A57DA00A60644 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59E3183A57DA00A60644 /* SystemConfiguration.framework */; };
 		188E59E7183A5EC600A60644 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E59E6183A5EC600A60644 /* PlaceViewController.m */; };
-		188E59EF183A631300A60644 /* GoogleMapsM4B.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59EE183A631300A60644 /* GoogleMapsM4B.framework */; };
-		188E59F1183A644900A60644 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 188E59F0183A644900A60644 /* GoogleMaps.bundle */; };
+		188E59F8183AA60400A60644 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59F7183AA60400A60644 /* GoogleMaps.framework */; };
+		188E59FA183AA61200A60644 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 188E59F9183AA61200A60644 /* GoogleMaps.bundle */; };
 		188F4758182D079100A83831 /* StepDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F4757182D079100A83831 /* StepDetailsViewController.m */; };
 		1893E68418362C0300222A15 /* TodoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893E68318362C0300222A15 /* TodoTableViewCell.m */; };
 		189409AC18311251006425DD /* TodoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189409AA18311251006425DD /* TodoDetailsViewController.m */; };
@@ -76,8 +76,8 @@
 		188E59E3183A57DA00A60644 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		188E59E5183A5EC600A60644 /* PlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
 		188E59E6183A5EC600A60644 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
-		188E59EE183A631300A60644 /* GoogleMapsM4B.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMapsM4B.framework; path = "GoogleMapsM4B-iOS-1.4.3/GoogleMapsM4B.framework"; sourceTree = "<group>"; };
-		188E59F0183A644900A60644 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "GoogleMapsM4B-iOS-1.4.3/GoogleMapsM4B.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
+		188E59F7183AA60400A60644 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "GoogleMaps-iOS-1.5.0/GoogleMaps.framework"; sourceTree = "<group>"; };
+		188E59F9183AA61200A60644 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "GoogleMaps-iOS-1.5.0/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		188F4756182D079100A83831 /* StepDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetailsViewController.h; sourceTree = "<group>"; };
 		188F4757182D079100A83831 /* StepDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetailsViewController.m; sourceTree = "<group>"; };
 		1893E68218362C0300222A15 /* TodoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoTableViewCell.h; sourceTree = "<group>"; };
@@ -117,7 +117,6 @@
 				188E59E2183A57CE00A60644 /* QuartzCore.framework in Frameworks */,
 				188E59E0183A57C100A60644 /* OpenGLES.framework in Frameworks */,
 				188E59DE183A57B600A60644 /* libz.dylib in Frameworks */,
-				188E59EF183A631300A60644 /* GoogleMapsM4B.framework in Frameworks */,
 				188E59DC183A57A700A60644 /* libicucore.dylib in Frameworks */,
 				188E59DA183A579D00A60644 /* libc++.dylib in Frameworks */,
 				188E59D8183A578400A60644 /* ImageIO.framework in Frameworks */,
@@ -128,6 +127,7 @@
 				1894BDF41826791300CDA37E /* CoreGraphics.framework in Frameworks */,
 				1894BDF81826791300CDA37E /* CoreData.framework in Frameworks */,
 				1894BDF61826791300CDA37E /* UIKit.framework in Frameworks */,
+				188E59F8183AA60400A60644 /* GoogleMaps.framework in Frameworks */,
 				1894BDF21826791300CDA37E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,8 +222,8 @@
 		1894BDF01826791300CDA37E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				188E59F0183A644900A60644 /* GoogleMaps.bundle */,
-				188E59EE183A631300A60644 /* GoogleMapsM4B.framework */,
+				188E59F9183AA61200A60644 /* GoogleMaps.bundle */,
+				188E59F7183AA60400A60644 /* GoogleMaps.framework */,
 				188E59E3183A57DA00A60644 /* SystemConfiguration.framework */,
 				188E59E1183A57CE00A60644 /* QuartzCore.framework */,
 				188E59DF183A57C100A60644 /* OpenGLES.framework */,
@@ -344,7 +344,7 @@
 				189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */,
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
-				188E59F1183A644900A60644 /* GoogleMaps.bundle in Resources */,
+				188E59FA183AA61200A60644 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +490,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3",
+					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3\\ 2",
+					"/Users/Apple/Desktop/TodoOrganizer/GoogleMaps-iOS-1.5.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TodoOrganizer/TodoOrganizer-Prefix.pch";
@@ -497,7 +499,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -511,14 +513,16 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3",
+					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3\\ 2",
+					"/Users/Apple/Desktop/TodoOrganizer/GoogleMaps-iOS-1.5.0",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TodoOrganizer/TodoOrganizer-Prefix.pch";
 				INFOPLIST_FILE = "TodoOrganizer/TodoOrganizer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				"OTHER_LDFLAGS[arch=*]" = "";
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
