@@ -8,13 +8,14 @@
 
 #import "PlaceViewController.h"
 #import <GoogleMaps/GoogleMaps.h>
+#import <MapKit/MapKit.h>
 
 @interface PlaceViewController ()
 
 @end
 
 @implementation PlaceViewController{
-    GMSMapView *mapView_;
+    MKMapView *mapView_;
 }
 
 - (void)viewDidLoad
@@ -24,35 +25,48 @@
     self.navigationController.navigationBar.translucent = NO;
     
 	self.view.backgroundColor = [UIColor whiteColor];
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:2];
-    mapView_ = [GMSMapView mapWithFrame:CGRectZero camera:camera];
-    mapView_.myLocationEnabled = YES;
-    self.view = mapView_;
-    
-    // Creates a marker in the center of the map.
-    GMSMarker *marker = [[GMSMarker alloc] init];
-    marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    marker.title = @"Sydney";
-    marker.snippet = @"Australia";
-    marker.map = mapView_;
-    
-    
-    if ([[UIApplication sharedApplication] canOpenURL:
-         [NSURL URLWithString:@"comgooglemaps://"]]) {
-        [[UIApplication sharedApplication] openURL:
-         [NSURL URLWithString:@"comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"]];
-    } else {
-        NSLog(@"Can't use comgooglemaps://");
-    }
 
+    mapView_ = [[MKMapView alloc] init];
+    self.view = mapView_;
+    [self searchPlace:self.todoPlace];
+}
+
+
+
+- (void)searchPlace: (NSString *) address
+{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder geocodeAddressString:address
+                 completionHandler:^(NSArray* placemarks, NSError* error)
+     {
+         if (placemarks && placemarks.count > 0)
+         {
+             CLPlacemark *topResult = [placemarks objectAtIndex:0];
+             MKPlacemark *placemark = [[MKPlacemark alloc] initWithPlacemark:topResult];
+             
+             [mapView_ addAnnotation:placemark];
+             
+             CLLocationCoordinate2D _venue = placemark.coordinate;
+             
+             [mapView_ setCenterCoordinate:_venue];
+             
+             MKCoordinateRegion region = mapView_.region;
+             region.span.longitudeDelta = 1.0;
+             region.span.latitudeDelta = 1.0;
+             [mapView_ setRegion:region animated:YES];
+             
+         }
+         else{
+             NSLog(@"Cannot find this location!");
+         }
+         
+     }
+     ];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

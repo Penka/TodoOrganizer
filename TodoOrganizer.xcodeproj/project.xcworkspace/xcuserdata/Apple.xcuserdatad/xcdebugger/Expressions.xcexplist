@@ -3,18 +3,26 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[TodosTableViewController tableView:cellForRowAtIndexPath:]:TodosTableViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "todo.title">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "__39-[TodoCell gestureToShowCompleteButton]_block_invoke:TodoCell.m">
          <PersistentStrings>
             <PersistentString
                value = "self.completeTodoButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PlaceViewController viewDidLoad]:PlaceViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "marker.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TodosTableViewController tableView:cellForRowAtIndexPath:]:TodosTableViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "todo.title">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

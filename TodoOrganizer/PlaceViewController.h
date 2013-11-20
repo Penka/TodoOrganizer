@@ -10,4 +10,6 @@
 
 @interface PlaceViewController : UIViewController
 
+@property (nonatomic, strong) NSString *todoPlace;
+
 @end

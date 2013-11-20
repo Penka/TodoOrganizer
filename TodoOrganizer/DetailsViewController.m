@@ -38,6 +38,7 @@
 - (void)viewPlaceInMaps
 {
     PlaceViewController *vc = [[PlaceViewController alloc] init];
+    vc.todoPlace = self.todo.place;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -156,6 +157,7 @@
 	self.todoDetailsViewController.descriptionTextField.enabled = editing;
 	self.todoDetailsViewController.placeTextField.enabled = editing;
     self.todoDetailsViewController.deadlineTextField.enabled = editing;
+    self.todoDetailsViewController.viewPlaceButton.hidden = editing;
     [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
@@ -186,7 +188,6 @@
     if(indexPath.row < steps.count){
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            cell.accessoryType = UITableViewCellAccessoryNone;
         }
     
         Step *step = [steps objectAtIndex:indexPath.row];
