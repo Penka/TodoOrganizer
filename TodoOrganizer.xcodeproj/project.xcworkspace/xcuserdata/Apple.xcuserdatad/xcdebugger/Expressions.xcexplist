@@ -11,14 +11,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PlaceViewController viewDidLoad]:PlaceViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "marker.position">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[TodosTableViewController tableView:cellForRowAtIndexPath:]:TodosTableViewController.m">
          <PersistentStrings>
             <PersistentString

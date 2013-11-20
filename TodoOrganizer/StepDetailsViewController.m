@@ -48,9 +48,20 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(UILabel *) configureCompleteLabel
+{
+    UILabel *completeLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 110, 30)];
+
+    completeLabel.textColor = [UIColor blackColor];
+    completeLabel.backgroundColor = [UIColor whiteColor];
+    completeLabel.text = @"Complete:";
+    
+    return completeLabel;
+}
+
 -(void) configureTextStepCell
 {
-    stepTextTextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
+    stepTextTextField = [[UITextField alloc] initWithFrame:CGRectMake(30, 10, 210, 30)];
     stepTextTextField.adjustsFontSizeToFitWidth = YES;
     stepTextTextField.textColor = [UIColor blackColor];
     stepTextTextField.backgroundColor = [UIColor whiteColor];
@@ -66,9 +77,9 @@
 
 -(void) configureIsDoneStepCell
 {
-    isDoneSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(199, 8, 0, 0)];
+    isDoneSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(200, 10, 0, 0)];
     [isDoneSwitch addTarget:self action:@selector(switchToggled:) forControlEvents: UIControlEventTouchUpInside];
-    [isDoneSwitch setOn:step.isDone.boolValue animated:NO];
+    [isDoneSwitch setOn:step.isDone.boolValue animated:YES];
 }
 
 - (void) switchToggled:(id)sender {
@@ -106,6 +117,7 @@
         [self configureIsDoneStepCell];
         
         [cell.contentView addSubview:isDoneSwitch];
+        [cell.contentView addSubview:[self configureCompleteLabel]];
     }
     
     return cell;

@@ -82,10 +82,8 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
-
-    [self.containingTableView reloadData];
     
-    [self hideUtilityButtonsAnimated:YES];
+    [self.containingTableView reloadData];
     
 }
 

@@ -25,8 +25,6 @@
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
     
     [self configureTextFields:NO];
-    
-    [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -34,6 +32,7 @@
     [super viewWillAppear:animated];
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
     self.tableView.tableHeaderView = self.todoDetailsViewController.view;
+    [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
 
     self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
 	self.navigationItem.title = todo.title;

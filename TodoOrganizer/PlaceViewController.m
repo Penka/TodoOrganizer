@@ -51,7 +51,11 @@
              
          }
          else{
-             NSLog(@"Cannot find this location!");
+             UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+             label.text = @"Sorry but no such address.";
+             label.backgroundColor = [UIColor whiteColor];
+             label.textColor = [UIColor redColor];
+             self.view = label;
          }
          
      }
