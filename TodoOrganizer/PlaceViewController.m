@@ -10,10 +10,6 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <MapKit/MapKit.h>
 
-@interface PlaceViewController ()
-
-@end
-
 @implementation PlaceViewController{
     MKMapView *mapView_;
 }
@@ -30,8 +26,6 @@
     self.view = mapView_;
     [self searchPlace:self.todoPlace];
 }
-
-
 
 - (void)searchPlace: (NSString *) address
 {

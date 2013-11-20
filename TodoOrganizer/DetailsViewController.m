@@ -10,10 +10,6 @@
 #import "StepDetailsViewController.h"
 #import "PlaceViewController.h"
 
-@interface DetailsViewController ()
-
-@end
-
 @implementation DetailsViewController
 
 @synthesize todo;
@@ -23,8 +19,6 @@
 {
     [super viewDidLoad];
    
-    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
-    self.tableView.tableHeaderView = self.todoDetailsViewController.view;
     self.tableView.allowsSelectionDuringEditing = YES;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -35,37 +29,45 @@
     [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
 }
 
-- (void)viewPlaceInMaps
-{
-    PlaceViewController *vc = [[PlaceViewController alloc] init];
-    vc.todoPlace = self.todo.place;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
+    self.tableView.tableHeaderView = self.todoDetailsViewController.view;
+
     self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
 	self.navigationItem.title = todo.title;
     self.todoDetailsViewController.titleTextField.text = todo.title;
     self.todoDetailsViewController.placeTextField.text = todo.place;
+    [self handleViewPlaceButtonVisibility];
     [self updateDeadlineTextField];
     
     if(todo.deadline != nil){
         self.todoDetailsViewController.deadlineDatePicker.date = todo.deadline;
     }
+    
     self.todoDetailsViewController.descriptionTextField.text = todo.todoDescription;
 
-	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+	//NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES];
+	//NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
 	
 	NSMutableArray *sortedSteps = [[NSMutableArray alloc] initWithArray:[todo.steps allObjects]];
-	[sortedSteps sortUsingDescriptors:sortDescriptors];
+	//[sortedSteps sortUsingDescriptors:sortDescriptors];
 	self.steps = sortedSteps;
     
     [self.tableView reloadData];
     
+}
+
+- (void) handleViewPlaceButtonVisibility
+{
+    if([self.todo.place length] <= 0){
+        self.todoDetailsViewController.viewPlaceButton.hidden = YES;
+    }
+    else{
+        self.todoDetailsViewController.viewPlaceButton.hidden = NO;
+    }
+
 }
 
 - (void)viewDidUnload
@@ -98,7 +100,6 @@
         [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
     }
 
-    
     [self.tableView endUpdates];
 
 	if (!editing) {
@@ -124,6 +125,7 @@
         
             self.todoDetailsViewController.deadlineTextField.hidden = NO;
             self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
+            [self handleViewPlaceButtonVisibility];
             [self updateDeadlineTextField];}
         }
     else{
@@ -133,23 +135,7 @@
     }
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    NSInteger stepsCount = todo.steps.count;
-    
-    if ([self isEditing]) {
-        stepsCount++;
-    }
-    
-    return stepsCount;
-}
+#pragma mark - UI elements
 
 - (void) configureTextFields:(BOOL) editing
 {
@@ -177,8 +163,47 @@
     todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
     todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
     self.title = todo.title;
-
+    
 }
+
+#pragma mark - Navigation controllers
+
+- (void)loadStepDetailsView:(Step*) selectedStep
+{
+    StepDetailsViewController *stepDetailViewController = [[StepDetailsViewController alloc] init];
+    
+    stepDetailViewController.todo = todo;
+    stepDetailViewController.step = selectedStep;
+    
+    [self.navigationController pushViewController:stepDetailViewController animated:YES];
+}
+
+- (void)viewPlaceInMaps
+{
+    PlaceViewController *vc = [[PlaceViewController alloc] init];
+    vc.todoPlace = self.todo.place;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSInteger stepsCount = todo.steps.count;
+    
+    if ([self isEditing]) {
+        stepsCount++;
+    }
+    
+    return stepsCount;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -191,6 +216,7 @@
         }
     
         Step *step = [steps objectAtIndex:indexPath.row];
+        
         if(step.isDone.boolValue){
             cell.backgroundColor = [UIColor greenColor];
         }
@@ -199,7 +225,8 @@
         }
         
         cell.textLabel.text = step.text;
-    } else {
+    }
+    else {
         static NSString *AddStepCellIdentifier = @"AddStepCell";
         cell = [tableView dequeueReusableCellWithIdentifier:AddStepCellIdentifier];
         
@@ -263,16 +290,6 @@
     }
     
     [self loadStepDetailsView:selectedStep];
-}
-
-- (void)loadStepDetailsView:(Step*) selectedStep
-{
-    StepDetailsViewController *stepDetailViewController = [[StepDetailsViewController alloc] init];
-    
-    stepDetailViewController.todo = todo;
-    stepDetailViewController.step = selectedStep;
-    
-    [self.navigationController pushViewController:stepDetailViewController animated:YES];
 }
 
 @end

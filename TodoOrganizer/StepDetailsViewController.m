@@ -43,6 +43,42 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)cancelStep:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void) configureTextStepCell
+{
+    stepTextTextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
+    stepTextTextField.adjustsFontSizeToFitWidth = YES;
+    stepTextTextField.textColor = [UIColor blackColor];
+    stepTextTextField.backgroundColor = [UIColor whiteColor];
+    stepTextTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    stepTextTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    stepTextTextField.tag = 0;
+    stepTextTextField.placeholder = @"Step Title";
+    
+    stepTextTextField.clearButtonMode = UITextFieldViewModeNever;
+    [stepTextTextField setEnabled: YES];
+    stepTextTextField.text = step.text;
+}
+
+-(void) configureIsDoneStepCell
+{
+    isDoneSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(199, 8, 0, 0)];
+    [isDoneSwitch addTarget:self action:@selector(switchToggled:) forControlEvents: UIControlEventTouchUpInside];
+    [isDoneSwitch setOn:step.isDone.boolValue animated:NO];
+}
+
+- (void) switchToggled:(id)sender {
+    if ([isDoneSwitch isOn]) {
+        [isDoneSwitch setOn:YES animated:YES];
+    } else {
+        [isDoneSwitch setOn:NO animated:YES];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -75,37 +111,6 @@
     return cell;
 }
 
--(void) configureTextStepCell
-{
-    stepTextTextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
-    stepTextTextField.adjustsFontSizeToFitWidth = YES;
-    stepTextTextField.textColor = [UIColor blackColor];
-    stepTextTextField.backgroundColor = [UIColor whiteColor];
-    stepTextTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    stepTextTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    stepTextTextField.tag = 0;
-    stepTextTextField.placeholder = @"Step Title";
-    
-    stepTextTextField.clearButtonMode = UITextFieldViewModeNever;
-    [stepTextTextField setEnabled: YES];
-    stepTextTextField.text = step.text;
-}
-
--(void) configureIsDoneStepCell
-{
-    isDoneSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(199, 8, 0, 0)];
-    [isDoneSwitch addTarget:self action:@selector(switchToggled:) forControlEvents: UIControlEventTouchUpInside];  
-    [isDoneSwitch setOn:step.isDone.boolValue animated:NO];
-}
-
-- (void) switchToggled:(id)sender {
-    if ([isDoneSwitch isOn]) {
-        [isDoneSwitch setOn:YES animated:YES];
-    } else {
-        [isDoneSwitch setOn:NO animated:YES];
-    }
-}
-
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -133,11 +138,6 @@
 		abort();
 	}
     
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)cancelStep:(id)sender
-{
     [self.navigationController popViewControllerAnimated:YES];
 }
 

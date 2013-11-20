@@ -16,15 +16,15 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
--(void) changeViewToAddVC;
-
 @end
 
 @implementation TodosTableViewController
 
+
+#pragma mark - Fetched Results Controller setup
+
 - (NSFetchedResultsController *)fetchedResultsController
 {
-    
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -43,7 +43,6 @@
     NSArray *sortDescriptors = @[sortByDone, sort];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
-     //[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
     [NSFetchedResultsController deleteCacheWithName:@"Root"];
@@ -59,6 +58,8 @@
     return _fetchedResultsController;
 }
 
+#pragma mark - Notifications
+
 - (void) scheduleNotification:(Todo *)todo
 {
     UILocalNotification* localNotification = [[UILocalNotification alloc] init];
@@ -72,6 +73,8 @@
     
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
+
+#pragma mark - Load methods
 
 - (void)viewDidLoad
 {
@@ -189,26 +192,6 @@
     [self showTodoDetails:selectedTodo];
 }
 
-#pragma mark - My methods
-
--(void) showTodoDetails :(Todo *)selectedTodo {
-    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
-    detailsViewController.todo = selectedTodo;
-    [self.navigationController pushViewController:detailsViewController animated:YES];
-}
-
--(void) setRightNavigationButton {
-    UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(changeViewToAddVC)];
-    self.navigationItem.rightBarButtonItem = addButtonItem;
-}
-
--(void) changeViewToAddVC
-{
-    AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
-    addTodoViewController.managedObjectContext = self.managedObjectContext;
-    [self.navigationController pushViewController:addTodoViewController animated:YES];
-}
-
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
     UITableView *tableView = self.tableView;
@@ -222,6 +205,28 @@
 			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 			break;
     }
+}
+
+#pragma mark - Navigation controllers
+
+-(void) showTodoDetails :(Todo *)selectedTodo {
+    DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
+    detailsViewController.todo = selectedTodo;
+    [self.navigationController pushViewController:detailsViewController animated:YES];
+}
+
+-(void) changeViewToAddVC
+{
+    AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
+    addTodoViewController.managedObjectContext = self.managedObjectContext;
+    [self.navigationController pushViewController:addTodoViewController animated:YES];
+}
+
+#pragma mark - Navigation buttons
+
+-(void) setRightNavigationButton {
+    UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(changeViewToAddVC)];
+    self.navigationItem.rightBarButtonItem = addButtonItem;
 }
 
 @end
