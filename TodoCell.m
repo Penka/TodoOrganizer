@@ -7,6 +7,7 @@
 //
 
 #import "TodoCell.h"
+#import "BaseNotificationViewController.h"
 
 #define buttonWidthDefault 90
 #define cellOffset 20
@@ -76,6 +77,9 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 
 - (void) manageTodo
 {
+    BaseNotificationViewController *notificationsController = [[BaseNotificationViewController alloc ]init];
+    UILocalNotification *notification = [notificationsController getLocalNotification:_todo];
+    
     NSManagedObjectContext *context = [_todo managedObjectContext];
     BOOL isStepDone = !_todo.isDone.boolValue;
     
@@ -86,6 +90,9 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
+    if(notification != nil){
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
     
     [self.containingTableView reloadData];
 }
