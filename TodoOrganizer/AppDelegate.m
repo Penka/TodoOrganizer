@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "TodosTableViewController.h"
 #import "Todo.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation AppDelegate
 
@@ -46,6 +47,19 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    // attempt to extract a token from the url
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                    fallbackHandler:^(FBAppCall *call) {
+                        NSLog(@"In fallback handler");
+                    }];
+}
+
 
 //Handling notification when the application is working in foreground.
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification

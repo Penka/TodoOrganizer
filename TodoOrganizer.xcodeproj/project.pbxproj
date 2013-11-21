@@ -23,6 +23,7 @@
 		188E59E4183A57DA00A60644 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59E3183A57DA00A60644 /* SystemConfiguration.framework */; };
 		188E59E7183A5EC600A60644 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E59E6183A5EC600A60644 /* PlaceViewController.m */; };
 		188F4758182D079100A83831 /* StepDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188F4757182D079100A83831 /* StepDetailsViewController.m */; };
+		189145C6183E4A14006771DE /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 189145C5183E4A14006771DE /* FacebookSDK.framework */; };
 		1893E68418362C0300222A15 /* TodoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1893E68318362C0300222A15 /* TodoTableViewCell.m */; };
 		189409AC18311251006425DD /* TodoDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189409AA18311251006425DD /* TodoDetailsViewController.m */; };
 		189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189409AB18311251006425DD /* TodoDetailsViewController.xib */; };
@@ -76,6 +77,7 @@
 		188E59E6183A5EC600A60644 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
 		188F4756182D079100A83831 /* StepDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepDetailsViewController.h; sourceTree = "<group>"; };
 		188F4757182D079100A83831 /* StepDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepDetailsViewController.m; sourceTree = "<group>"; };
+		189145C5183E4A14006771DE /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		1893E68218362C0300222A15 /* TodoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoTableViewCell.h; sourceTree = "<group>"; };
 		1893E68318362C0300222A15 /* TodoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoTableViewCell.m; sourceTree = "<group>"; };
 		189409A918311251006425DD /* TodoDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoDetailsViewController.h; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				188E59DC183A57A700A60644 /* libicucore.dylib in Frameworks */,
 				188E59DA183A579D00A60644 /* libc++.dylib in Frameworks */,
 				188E59D8183A578400A60644 /* ImageIO.framework in Frameworks */,
+				189145C6183E4A14006771DE /* FacebookSDK.framework in Frameworks */,
 				188E59D6183A577E00A60644 /* GLKit.framework in Frameworks */,
 				188E59D4183A577000A60644 /* CoreText.framework in Frameworks */,
 				188E59D2183A576600A60644 /* CoreLocation.framework in Frameworks */,
@@ -220,6 +223,7 @@
 		1894BDF01826791300CDA37E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				189145C5183E4A14006771DE /* FacebookSDK.framework */,
 				188C3C0D183CE1FA00327C91 /* MapKit.framework */,
 				188E59E3183A57DA00A60644 /* SystemConfiguration.framework */,
 				188E59E1183A57CE00A60644 /* QuartzCore.framework */,
@@ -321,6 +325,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				he,
 			);
 			mainGroup = 1894BDE51826791200CDA37E;
 			productRefGroup = 1894BDEF1826791300CDA37E /* Products */;
@@ -488,6 +493,7 @@
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3\\ 2",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMaps-iOS-1.5.0",
+					/Users/Apple/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TodoOrganizer/TodoOrganizer-Prefix.pch";
@@ -511,6 +517,7 @@
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMapsM4B-iOS-1.4.3\\ 2",
 					"/Users/Apple/Desktop/TodoOrganizer/GoogleMaps-iOS-1.5.0",
+					/Users/Apple/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TodoOrganizer/TodoOrganizer-Prefix.pch";

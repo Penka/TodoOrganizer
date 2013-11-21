@@ -39,6 +39,12 @@
     [self.view addSubview:self.todoDetailsViewController.view];
     [self.todoDetailsViewController.deadlineTextField setHidden:YES];
     self.todoDetailsViewController.viewPlaceButton.hidden = YES;
+    self.todoDetailsViewController.fbShareButton.hidden = YES;
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 
 - (void)saveTodo:(id)sender

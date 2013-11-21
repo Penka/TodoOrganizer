@@ -10,11 +10,24 @@
 #import "StepDetailsViewController.h"
 #import "PlaceViewController.h"
 #import "TodosTableViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
+
+NSString *const kPlaceholderPostMessage = @"Say something about this...";
+
+@interface DetailsViewController()
+
+@property (unsafe_unretained, nonatomic) UITextView *postMessageTextView;
+@property (strong, nonatomic) NSMutableDictionary *postParams;
+
+@end
 
 @implementation DetailsViewController
 
+
+
 @synthesize todo;
 @synthesize steps;
+@synthesize postMessageTextView;
 
 - (void) navigateBack
 {
@@ -30,6 +43,16 @@
 {
     [super viewDidLoad];
    
+    
+    self.postParams = [@{
+                         @"link" : @"https://developers.facebook.com/ios",
+                         @"picture" : @"https://developers.facebook.com/attachment/iossdk_logo.png",
+                         @"name" : @"Facebook SDK for iOS",
+                         @"caption" : @"Build great social apps and get more installs.",
+                         @"description" : @"The Facebook SDK for iOS makes it easier and faster to develop Facebook integrated iOS apps."
+                         } mutableCopy];
+
+
     self.tableView.allowsSelectionDuringEditing = YES;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
@@ -47,6 +70,8 @@
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
     self.tableView.tableHeaderView = self.todoDetailsViewController.view;
     [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
+    [self.todoDetailsViewController.fbShareButton addTarget:self action:@selector(shareToFacebookWall) forControlEvents:UIControlEventTouchDown];
+
 
     self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
 	self.navigationItem.title = todo.title;
@@ -129,15 +154,17 @@
                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
                 abort();
             }
-        
             self.todoDetailsViewController.deadlineTextField.hidden = NO;
             self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
+            self.todoDetailsViewController.fbShareButton.hidden = NO;
             [self handleViewPlaceButtonVisibility];
-            [self updateDeadlineTextField];}
+            [self updateDeadlineTextField];
+        }
     }
     else{
         self.todoDetailsViewController.deadlineTextField.hidden = YES;
         self.todoDetailsViewController.deadlineDatePicker.hidden = NO;
+        self.todoDetailsViewController.fbShareButton.hidden = YES;
     }
 }
 
@@ -298,4 +325,89 @@
     [self loadStepDetailsView:selectedStep];
 }
 
+
+#pragma mark - Facebook methods
+
+- (void)publishStory
+{
+    [FBRequestConnection
+     startWithGraphPath:@"me/feed"
+     parameters:self.postParams
+     HTTPMethod:@"POST"
+     completionHandler:^(FBRequestConnection *connection,
+                         id result,
+                         NSError *error) {
+         NSString *alertText;
+         if (error) {
+             alertText = [NSString stringWithFormat:
+                          @"error: domain = %@, code = %d",
+                          error.domain, error.code];
+         } else {
+             alertText = [NSString stringWithFormat:
+                          @"Posted action, id: %@",
+                          result[@"id"]];
+         }
+         // Show the result in an alert
+         [[[UIAlertView alloc] initWithTitle:@"Result"
+                                     message:alertText
+                                    delegate:self
+                           cancelButtonTitle:@"OK!"
+                           otherButtonTitles:nil]
+          show];
+     }];
+}
+
+- (void)shareToFacebookWall
+{
+    self.postParams[@"message"] = self.todo.title;
+
+    if ([[FBSession activeSession]isOpen]) {
+        /*
+         * if the current session has no publish permission we need to reauthorize
+         */
+        if ([[[FBSession activeSession]permissions]indexOfObject:@"publish_actions"] == NSNotFound) {
+            
+            [[FBSession activeSession] requestNewPublishPermissions:[NSArray arrayWithObject:@"publish_action"] defaultAudience:FBSessionDefaultAudienceFriends
+                                                  completionHandler:^(FBSession *session,NSError *error){
+                                                      [self publishStory];
+                                                  }];
+            
+        }else{
+            [self publishStory];
+        }
+    }else{
+        /*
+         * open a new session with publish permission
+         */
+        [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObject:@"publish_actions"]
+                                           defaultAudience:FBSessionDefaultAudienceOnlyMe
+                                              allowLoginUI:YES
+                                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+                                             if (!error && status == FBSessionStateOpen) {
+                                                 [self publishStory];
+                                             }else{
+                                                 NSLog(@"error");
+                                             }
+                                         }];
+    }
+
+}
+//- (void) alertView:(UIAlertView *)alertView
+//didDismissWithButtonIndex:(NSInteger)buttonIndex
+//{
+//    [[self presentingViewController]
+//     dismissModalViewControllerAnimated:YES];
+//}
+
+//- (void)shareToFacebookWall
+//{
+//    NSURL* url = [NSURL URLWithString:@"https://developers.facebook.com/ios"];
+//    [FBDialogs presentShareDialogWithLink:url
+//                                  handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+//                                      if(error) {
+//                                          NSLog(@"Error: %@", error.description);
+//                                      } else {
+//                                          NSLog(@"Success!");
+//                                      }
+//                                  }];}
 @end

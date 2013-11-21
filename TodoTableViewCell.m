@@ -21,7 +21,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 
 @property (nonatomic, weak) UIScrollView *cellScrollView;
 
-@property (nonatomic, strong) UIButton *completeTodoButton;
+@property (nonatomic, strong) UIButton *manageTodoButton;
 
 @property (nonatomic) CGFloat height;
 
@@ -41,9 +41,9 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _todo = todo;
-        self.completeTodoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidthDefault, self.bounds.size.height)];
-        self.completeTodoButton.backgroundColor = [UIColor greenColor];
-        [self.completeTodoButton addTarget:self action:@selector(completeTodo) forControlEvents:UIControlEventTouchDown];
+        self.manageTodoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidthDefault, self.bounds.size.height)];
+        self.manageTodoButton.backgroundColor = [UIColor greenColor];
+        [self.manageTodoButton addTarget:self action:@selector(manageTodo) forControlEvents:UIControlEventTouchDown];
 
         self.height = containingTableView.rowHeight;
         self.containingTableView = containingTableView;
@@ -71,7 +71,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 }
 
 
-- (void) completeTodo{
+- (void) manageTodo{
     NSManagedObjectContext *context = [_todo managedObjectContext];
     BOOL isStepDone = !_todo.isDone.boolValue;
     
@@ -95,11 +95,11 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 -(void) loadUIElements
 {
     if(_todo.isDone.boolValue){
-        [self.completeTodoButton setTitle:@"Activate" forState:UIControlStateNormal];
+        [self.manageTodoButton setTitle:@"Activate" forState:UIControlStateNormal];
         [self changeBackgroundColor:[UIColor orangeColor]];
     }
     else{
-        [self.completeTodoButton setTitle:@"Complete" forState:UIControlStateNormal];
+        [self.manageTodoButton setTitle:@"Complete" forState:UIControlStateNormal];
         [self changeBackgroundColor:[UIColor whiteColor]];
     }
 }
@@ -119,7 +119,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
     
     [self loadUIElements];
     
-    [self.cellScrollView addSubview:self.completeTodoButton];
+    [self.cellScrollView addSubview:self.manageTodoButton];
     UIView *scrollViewContentView = [[UIView alloc] initWithFrame:CGRectMake(buttonWidthDefault, 0, CGRectGetWidth(self.bounds), _height)];
     scrollViewContentView.backgroundColor = [UIColor whiteColor];
     [self.cellScrollView addSubview:scrollViewContentView];
@@ -145,7 +145,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
         }
         // Highlight hack
         if (!self.highlighted) {
-            self.completeTodoButton.hidden = YES;
+            self.manageTodoButton.hidden = YES;
             NSTimer *endHighlightTimer = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(timerEndCellHighlight:) userInfo:nil repeats:NO];
             [[NSRunLoop currentRunLoop] addTimer:endHighlightTimer forMode:NSRunLoopCommonModes];
             [self setHighlighted:YES];
@@ -158,7 +158,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 
 - (void)timerEndCellHighlight:(id)sender {
     if (self.highlighted) {
-        self.completeTodoButton.hidden = NO;
+        self.manageTodoButton.hidden = NO;
         [self setHighlighted:NO];
     }
 }
@@ -256,7 +256,7 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
 //        self.deleteTodoButton.frame = CGRectMake(scrollView.contentOffset.x + (CGRectGetWidth(self.bounds) - buttonWidthDefault), 0.0f, buttonWidthDefault, _height);
     } else {
         // Expose the left button view
-        self.completeTodoButton.frame = CGRectMake(scrollView.contentOffset.x, 0.0f, buttonWidthDefault, _height);
+        self.manageTodoButton.frame = CGRectMake(scrollView.contentOffset.x, 0.0f, buttonWidthDefault, _height);
     }
 }
 
