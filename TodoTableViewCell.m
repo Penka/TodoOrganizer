@@ -249,4 +249,16 @@ static NSString * const kTableViewCellContentView = @"UITableViewCellContentView
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.x > buttonWidthDefault) {
+        // Expose the right button view
+//        self.deleteTodoButton.frame = CGRectMake(scrollView.contentOffset.x + (CGRectGetWidth(self.bounds) - buttonWidthDefault), 0.0f, buttonWidthDefault, _height);
+    } else {
+        // Expose the left button view
+        self.completeTodoButton.frame = CGRectMake(scrollView.contentOffset.x, 0.0f, buttonWidthDefault, _height);
+    }
+}
+
+
 @end

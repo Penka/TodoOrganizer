@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D4D182BF4FD00ADF213 /* DetailsViewController.m */; };
-		18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D5C182C28AE00ADF213 /* TodoCell.m */; };
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
 		188C3C0A183CBC8600327C91 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188C3C09183CBC8600327C91 /* GoogleMaps.framework */; };
 		188C3C0C183CBC9900327C91 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 188C3C0B183CBC9900327C91 /* GoogleMaps.bundle */; };
@@ -42,6 +41,7 @@
 		1894BE111826791300CDA37E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF11826791300CDA37E /* Foundation.framework */; };
 		1894BE121826791300CDA37E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF51826791300CDA37E /* UIKit.framework */; };
 		1894BE131826791300CDA37E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1894BDF71826791300CDA37E /* CoreData.framework */; };
+		18962022183DFFF1000DFBF4 /* TodoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18962021183DFFF1000DFBF4 /* TodoCell.m */; };
 		18964D251834CD6100109E0B /* Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 18964D241834CD6100109E0B /* Step.m */; };
 		18964D281834CD6200109E0B /* Todo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18964D271834CD6200109E0B /* Todo.m */; };
 		1896ED5C18292B1800DB28E6 /* AddTodoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1896ED5B18292B1800DB28E6 /* AddTodoViewController.m */; };
@@ -60,8 +60,6 @@
 /* Begin PBXFileReference section */
 		18295D4C182BF4FD00ADF213 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		18295D4D182BF4FD00ADF213 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
-		18295D5B182C28AE00ADF213 /* TodoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoCell.h; sourceTree = "<group>"; };
-		18295D5C182C28AE00ADF213 /* TodoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoCell.m; sourceTree = "<group>"; };
 		183C28521826BF5E00CEC80C /* TodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodosTableViewController.h; sourceTree = "<group>"; };
 		183C28531826BF5E00CEC80C /* TodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodosTableViewController.m; sourceTree = "<group>"; };
 		188C3C09183CBC8600327C91 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "GoogleMaps-iOS-1.5.0/GoogleMaps.framework"; sourceTree = "<group>"; };
@@ -102,6 +100,8 @@
 		1894BE081826791300CDA37E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1894BE0E1826791300CDA37E /* TodoOrganizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TodoOrganizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1894BE0F1826791300CDA37E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		18962020183DFFF1000DFBF4 /* TodoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodoCell.h; sourceTree = "<group>"; };
+		18962021183DFFF1000DFBF4 /* TodoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodoCell.m; sourceTree = "<group>"; };
 		18964D231834CD6100109E0B /* Step.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step.h; sourceTree = "<group>"; };
 		18964D241834CD6100109E0B /* Step.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step.m; sourceTree = "<group>"; };
 		18964D261834CD6200109E0B /* Todo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Todo.h; sourceTree = "<group>"; };
@@ -152,10 +152,10 @@
 		18295D5A182C289200ADF213 /* TableCells */ = {
 			isa = PBXGroup;
 			children = (
-				18295D5B182C28AE00ADF213 /* TodoCell.h */,
-				18295D5C182C28AE00ADF213 /* TodoCell.m */,
 				1893E68218362C0300222A15 /* TodoTableViewCell.h */,
 				1893E68318362C0300222A15 /* TodoTableViewCell.m */,
+				18962020183DFFF1000DFBF4 /* TodoCell.h */,
+				18962021183DFFF1000DFBF4 /* TodoCell.m */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 				1893E68418362C0300222A15 /* TodoTableViewCell.m in Sources */,
 				189409AC18311251006425DD /* TodoDetailsViewController.m in Sources */,
 				1894BE001826791300CDA37E /* main.m in Sources */,
-				18295D5D182C28AE00ADF213 /* TodoCell.m in Sources */,
+				18962022183DFFF1000DFBF4 /* TodoCell.m in Sources */,
 				18964D281834CD6200109E0B /* Todo.m in Sources */,
 				188E59E7183A5EC600A60644 /* PlaceViewController.m in Sources */,
 			);

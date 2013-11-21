@@ -157,6 +157,18 @@
     [self.tableView setEditing:editing animated:animated];
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Detemine if it's in editing mode
+    if (self.editing)
+    {
+        return UITableViewCellEditingStyleDelete;
+    }
+    
+    return UITableViewCellEditingStyleNone;
+}
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -207,6 +219,7 @@
     }
 }
 
+
 #pragma mark - Navigation controllers
 
 -(void) showTodoDetails :(Todo *)selectedTodo {
@@ -215,7 +228,7 @@
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
--(void) changeViewToAddVC
+-(void) navigateToAddView
 {
     AddTodoViewController *addTodoViewController = [[AddTodoViewController alloc] init];
     addTodoViewController.managedObjectContext = self.managedObjectContext;
@@ -225,7 +238,7 @@
 #pragma mark - Navigation buttons
 
 -(void) setRightNavigationButton {
-    UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(changeViewToAddVC)];
+    UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(navigateToAddView)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
 }
 

@@ -2,27 +2,43 @@
 //  TodoCell.h
 //  TodoOrganizer
 //
-//  Created by Apple on 11/7/13.
+//  Created by Apple on 11/21/13.
 //  Copyright (c) 2013 Some. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
 #import "Todo.h"
+@class TodoCell;
+
+typedef enum {
+    kCellStateCenter,
+    kCellStateLeft,
+    kCellStateRight
+} TodoCellState;
+
+@protocol TodoCellDelegate <NSObject>
+
+@optional
+- (void)swippableTableViewCell:(TodoCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index;
+- (void)swippableTableViewCell:(TodoCell *)cell scrollingToState:(TodoCellState)state;
+
+@end
 
 @interface TodoCell : UITableViewCell
-{
-    Todo *todo;
-    
-    UILabel *titleLabel;
-    UILabel *descriptionLabel;
-}
-
-@property (nonatomic, retain) Todo *todo;
 
 @property (nonatomic, retain) UILabel *titleLabel;
 @property (nonatomic, retain) UILabel *descriptionLabel;
 
-@property (strong, nonatomic) UIButton *completeTodoButton;
+@property (nonatomic) id <TodoCellDelegate> delegate;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier containingTableView:(UITableView *)containingTableView currentTodo: (Todo *)todo;
+
+- (void)hideUtilityButtonsAnimated:(BOOL)animated;
+
+- (void) changeBackgroundColor:(UIColor *) color;
+
+-(void) loadUIElements;
 
 @end
 
