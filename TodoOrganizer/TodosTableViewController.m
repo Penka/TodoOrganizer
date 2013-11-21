@@ -11,6 +11,7 @@
 #import "AddTodoViewController.h"
 #import "Todo.h"
 #import "TodoTableViewCell.h"
+#import "BaseNotificationViewController.h"
 
 @interface TodosTableViewController ()
 
@@ -108,12 +109,8 @@
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    if((!todo.isDone.boolValue) && ([todo.deadline compare:[NSDate date]]==NSOrderedDescending)){
-        [self scheduleNotification:todo];
-    }
-    
-    static NSString *cellIdentifier = @"Cell";
+
+        static NSString *cellIdentifier = @"Cell";
     
     TodoTableViewCell *cell = (TodoTableViewCell *)[table dequeueReusableCellWithIdentifier:cellIdentifier];
     
@@ -127,7 +124,6 @@
     
     return cell;
 }
-
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,11 +148,18 @@
     return UITableViewCellEditingStyleNone;
 }
 
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Todo* todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        BaseNotificationViewController *notificationsController = [[BaseNotificationViewController alloc] init];
+        UILocalNotification *notification = [notificationsController getLocalNotification:todo];
+        if(notification != nil){
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+        
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath] ];
         
@@ -208,6 +211,7 @@
 -(void) showTodoDetails :(Todo *)selectedTodo {
     DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
     detailsViewController.todo = selectedTodo;
+
     [self.navigationController pushViewController:detailsViewController animated:YES];
 }
 
@@ -223,23 +227,6 @@
 -(void) setRightNavigationButton {
     UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(navigateToAddView)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
-}
-
-
-#pragma mark - Notifications
-
-- (void) scheduleNotification:(Todo *)todo
-{
-    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    
-    //Setting the notification 30 minutes before the deadline.
-    NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
-    localNotification.fireDate = fireDate;
-    localNotification.alertBody = todo.title;
-    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end

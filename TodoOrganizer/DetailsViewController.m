@@ -11,12 +11,10 @@
 #import "PlaceViewController.h"
 #import "TodosTableViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-
-NSString *const kPlaceholderPostMessage = @"Say something about this...";
+#import "BaseNotificationViewController.h"
 
 @interface DetailsViewController()
 
-@property (unsafe_unretained, nonatomic) UITextView *postMessageTextView;
 @property (strong, nonatomic) NSMutableDictionary *postParams;
 
 @end
@@ -27,7 +25,6 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
 
 @synthesize todo;
 @synthesize steps;
-@synthesize postMessageTextView;
 
 - (void) navigateBack
 {
@@ -60,8 +57,7 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"My todos" style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
     
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
-    
-    [self configureTextFields:NO];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,6 +65,9 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
     [super viewWillAppear:animated];
     self.todoDetailsViewController = [[TodoDetailsViewController alloc] init];
     self.tableView.tableHeaderView = self.todoDetailsViewController.view;
+    
+    [self configureTextFields:NO];
+    
     [self.todoDetailsViewController.viewPlaceButton addTarget:self action:@selector(viewPlaceInMaps) forControlEvents:UIControlEventTouchDown];
     [self.todoDetailsViewController.fbShareButton addTarget:self action:@selector(shareToFacebookWall) forControlEvents:UIControlEventTouchDown];
 
@@ -145,8 +144,11 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
             //[ErrorAlert release];
         }
         else{
+            BaseNotificationViewController *notificationsController = [[BaseNotificationViewController alloc] init];
+            
+            UILocalNotification *notification = [notificationsController getLocalNotification:self.todo];
+            
             [self updateTodoFields];
-        
             NSManagedObjectContext *context = todo.managedObjectContext;
         
             NSError *error = nil;
@@ -154,6 +156,25 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
                 abort();
             }
+            
+            if(notification !=nil){
+                [[UIApplication sharedApplication] cancelLocalNotification:notification];
+            }
+            [notificationsController scheduleNotification:self.todo];
+
+            if((!todo.isDone.boolValue) && ([todo.deadline compare:[NSDate date]]==NSOrderedDescending)){
+                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+                
+                //Setting the notification 30 minutes before the deadline.
+                NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
+                localNotification.fireDate = fireDate;
+                localNotification.alertBody = todo.title;
+                localNotification.timeZone = [NSTimeZone defaultTimeZone];
+                localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+                
+                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+            }
+
             self.todoDetailsViewController.deadlineTextField.hidden = NO;
             self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
             self.todoDetailsViewController.fbShareButton.hidden = NO;
@@ -180,6 +201,11 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
     [self.todoDetailsViewController.deadlineDatePicker setUserInteractionEnabled:editing];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
 - (void)updateDeadlineTextField
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -196,7 +222,6 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
     todo.todoDescription = self.todoDetailsViewController.descriptionTextField.text;
     todo.deadline = self.todoDetailsViewController.deadlineDatePicker.date;
     self.title = todo.title;
-    
 }
 
 #pragma mark - Navigation controllers
@@ -344,7 +369,8 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
                           error.domain, error.code];
          } else {
              alertText = [NSString stringWithFormat:
-                          @"Posted action, id: %@",
+                          @"Posted %@ at the wall with id: %@",
+                          self.todo.title,
                           result[@"id"]];
          }
          // Show the result in an alert
@@ -392,22 +418,5 @@ NSString *const kPlaceholderPostMessage = @"Say something about this...";
     }
 
 }
-//- (void) alertView:(UIAlertView *)alertView
-//didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//    [[self presentingViewController]
-//     dismissModalViewControllerAnimated:YES];
-//}
 
-//- (void)shareToFacebookWall
-//{
-//    NSURL* url = [NSURL URLWithString:@"https://developers.facebook.com/ios"];
-//    [FBDialogs presentShareDialogWithLink:url
-//                                  handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-//                                      if(error) {
-//                                          NSLog(@"Error: %@", error.description);
-//                                      } else {
-//                                          NSLog(@"Success!");
-//                                      }
-//                                  }];}
 @end

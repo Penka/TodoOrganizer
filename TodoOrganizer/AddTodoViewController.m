@@ -9,6 +9,7 @@
 #import "AddTodoViewController.h"
 #import "Todo.h"
 #import "DetailsViewController.h"
+#import "BaseNotificationViewController.h"
 
 @interface AddTodoViewController ()
 
@@ -73,7 +74,8 @@
             abort();
         }
         
-       
+        BaseNotificationViewController *notificationController = [[BaseNotificationViewController alloc] init];
+        [notificationController scheduleNotification:todo];
 	
         DetailsViewController *detailsViewController = [[DetailsViewController alloc] init];
         detailsViewController.todo = todo;
