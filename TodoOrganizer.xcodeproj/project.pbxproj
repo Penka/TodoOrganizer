@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		18295D4F182BF4FD00ADF213 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18295D4D182BF4FD00ADF213 /* DetailsViewController.m */; };
 		183C28551826BF5E00CEC80C /* TodosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183C28531826BF5E00CEC80C /* TodosTableViewController.m */; };
-		188C3C0A183CBC8600327C91 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188C3C09183CBC8600327C91 /* GoogleMaps.framework */; };
-		188C3C0C183CBC9900327C91 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 188C3C0B183CBC9900327C91 /* GoogleMaps.bundle */; };
 		188C3C0E183CE1FA00327C91 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188C3C0D183CE1FA00327C91 /* MapKit.framework */; };
 		188E59D0183A575800A60644 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59CF183A575800A60644 /* AVFoundation.framework */; };
 		188E59D2183A576600A60644 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188E59D1183A576600A60644 /* CoreLocation.framework */; };
@@ -62,8 +60,6 @@
 		18295D4D182BF4FD00ADF213 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		183C28521826BF5E00CEC80C /* TodosTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodosTableViewController.h; sourceTree = "<group>"; };
 		183C28531826BF5E00CEC80C /* TodosTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodosTableViewController.m; sourceTree = "<group>"; };
-		188C3C09183CBC8600327C91 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = "GoogleMaps-iOS-1.5.0/GoogleMaps.framework"; sourceTree = "<group>"; };
-		188C3C0B183CBC9900327C91 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "GoogleMaps-iOS-1.5.0/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		188C3C0D183CE1FA00327C91 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		188E59CF183A575800A60644 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		188E59D1183A576600A60644 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -130,7 +126,6 @@
 				1894BDF41826791300CDA37E /* CoreGraphics.framework in Frameworks */,
 				1894BDF81826791300CDA37E /* CoreData.framework in Frameworks */,
 				1894BDF61826791300CDA37E /* UIKit.framework in Frameworks */,
-				188C3C0A183CBC8600327C91 /* GoogleMaps.framework in Frameworks */,
 				1894BDF21826791300CDA37E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,8 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				188C3C0D183CE1FA00327C91 /* MapKit.framework */,
-				188C3C0B183CBC9900327C91 /* GoogleMaps.bundle */,
-				188C3C09183CBC8600327C91 /* GoogleMaps.framework */,
 				188E59E3183A57DA00A60644 /* SystemConfiguration.framework */,
 				188E59E1183A57CE00A60644 /* QuartzCore.framework */,
 				188E59DF183A57C100A60644 /* OpenGLES.framework */,
@@ -348,7 +341,6 @@
 				189409AD18311251006425DD /* TodoDetailsViewController.xib in Resources */,
 				1894BDFE1826791300CDA37E /* InfoPlist.strings in Resources */,
 				1894BE091826791300CDA37E /* Images.xcassets in Resources */,
-				188C3C0C183CBC9900327C91 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,6 @@
 //
 
 #import "PlaceViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
 #import <MapKit/MapKit.h>
 
 @implementation PlaceViewController{

@@ -32,12 +32,6 @@
    
     self.tableView.allowsSelectionDuringEditing = YES;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-   
-//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
-//    backButton.target = self;
-//    backButton.action = @selector(navigateBack);
-//    self.navigationItem.leftBarButtonItem = backButton;
-//   //  self.navigationItem.hidesBackButton = YES;
 
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"My todos" style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
@@ -108,9 +102,9 @@
     NSArray *stepsInsertIndexPath = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:stepsCount inSection:0]];
     
     if (editing) {
-        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView insertRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationBottom];
 	} else {
-        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView deleteRowsAtIndexPaths:stepsInsertIndexPath withRowAnimation:UITableViewRowAnimationBottom];
     }
 
     [self.tableView endUpdates];
@@ -140,9 +134,8 @@
             self.todoDetailsViewController.deadlineDatePicker.hidden = YES;
             [self handleViewPlaceButtonVisibility];
             [self updateDeadlineTextField];}
-        }
+    }
     else{
-        
         self.todoDetailsViewController.deadlineTextField.hidden = YES;
         self.todoDetailsViewController.deadlineDatePicker.hidden = NO;
     }

@@ -58,22 +58,6 @@
     return _fetchedResultsController;
 }
 
-#pragma mark - Notifications
-
-- (void) scheduleNotification:(Todo *)todo
-{
-    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-    
-    //Setting the notification 30 minutes before the deadline.
-    NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
-    localNotification.fireDate = fireDate;
-    localNotification.alertBody = todo.title;
-    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
-    
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-}
-
 #pragma mark - Load methods
 
 - (void)viewDidLoad
@@ -219,7 +203,6 @@
     }
 }
 
-
 #pragma mark - Navigation controllers
 
 -(void) showTodoDetails :(Todo *)selectedTodo {
@@ -240,6 +223,23 @@
 -(void) setRightNavigationButton {
     UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(navigateToAddView)];
     self.navigationItem.rightBarButtonItem = addButtonItem;
+}
+
+
+#pragma mark - Notifications
+
+- (void) scheduleNotification:(Todo *)todo
+{
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    
+    //Setting the notification 30 minutes before the deadline.
+    NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
+    localNotification.fireDate = fireDate;
+    localNotification.alertBody = todo.title;
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end
