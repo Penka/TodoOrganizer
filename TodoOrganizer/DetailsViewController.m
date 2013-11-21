@@ -9,11 +9,22 @@
 #import "DetailsViewController.h"
 #import "StepDetailsViewController.h"
 #import "PlaceViewController.h"
+#import "TodosTableViewController.h"
 
 @implementation DetailsViewController
 
 @synthesize todo;
 @synthesize steps;
+
+- (void) navigateBack
+{
+    TodosTableViewController *todosViewController = [[TodosTableViewController alloc] init];
+    todosViewController.managedObjectContext = [self.todo managedObjectContext];
+    todosViewController.title = @"My todos";
+    
+    [self.navigationController pushViewController:todosViewController animated:YES];
+
+}
 
 - (void)viewDidLoad
 {
@@ -21,6 +32,18 @@
    
     self.tableView.allowsSelectionDuringEditing = YES;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+   
+//    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+//    backButton.target = self;
+//    backButton.action = @selector(navigateBack);
+//    self.navigationItem.leftBarButtonItem = backButton;
+//   //  self.navigationItem.hidesBackButton = YES;
+
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(navigateBack)];
     
     [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:@"AddStepCell"];
     
@@ -47,12 +70,7 @@
     
     self.todoDetailsViewController.descriptionTextField.text = todo.todoDescription;
 
-	//NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"text" ascending:YES];
-	//NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
-	
-	NSMutableArray *sortedSteps = [[NSMutableArray alloc] initWithArray:[todo.steps allObjects]];
-	//[sortedSteps sortUsingDescriptors:sortDescriptors];
-	self.steps = sortedSteps;
+	self.steps = [[NSMutableArray alloc] initWithArray:[todo.steps allObjects]];;
     
     [self.tableView reloadData];
     
@@ -86,7 +104,6 @@
     [self configureTextFields:editing];
     
 	[self.navigationItem setHidesBackButton:editing animated:YES];
-    
     [self.tableView beginUpdates];
 
     NSUInteger stepsCount = [todo.steps count];
