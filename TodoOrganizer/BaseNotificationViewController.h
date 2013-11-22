@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Todo.h"
 
-@interface BaseNotificationViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface BaseNotificationViewController : NSObject
 
 - (void ) scheduleNotification:(Todo *)todo;
 - (UILocalNotification *) getLocalNotification:(Todo *) todo;

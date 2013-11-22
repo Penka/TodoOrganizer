@@ -162,18 +162,18 @@
             }
             [notificationsController scheduleNotification:self.todo];
 
-            if((!todo.isDone.boolValue) && ([todo.deadline compare:[NSDate date]]==NSOrderedDescending)){
-                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
-                
-                //Setting the notification 30 minutes before the deadline.
-                NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
-                localNotification.fireDate = fireDate;
-                localNotification.alertBody = todo.title;
-                localNotification.timeZone = [NSTimeZone defaultTimeZone];
-                localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
-                
-                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-            }
+//            if((!todo.isDone.boolValue) && ([todo.deadline compare:[NSDate date]]==NSOrderedDescending)){
+//                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+//                
+//                //Setting the notification 30 minutes before the deadline.
+//                NSDate *fireDate = [todo.deadline dateByAddingTimeInterval:-(60*30)];
+//                localNotification.fireDate = fireDate;
+//                localNotification.alertBody = todo.title;
+//                localNotification.timeZone = [NSTimeZone defaultTimeZone];
+//                localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+//                
+//                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+//            }
 
             self.todoDetailsViewController.deadlineTextField.hidden = NO;
             self.todoDetailsViewController.deadlineDatePicker.hidden = YES;

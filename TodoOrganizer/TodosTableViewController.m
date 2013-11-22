@@ -78,7 +78,6 @@
     [self setRightNavigationButton];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,7 +109,7 @@
 {
     Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-        static NSString *cellIdentifier = @"Cell";
+   static NSString *cellIdentifier = @"Cell";
     
     TodoTableViewCell *cell = (TodoTableViewCell *)[table dequeueReusableCellWithIdentifier:cellIdentifier];
     
